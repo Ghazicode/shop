@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 440" preserveAspectRatio="xMidYMid meet">
+<defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#EFF6FF"/><stop offset="1" stop-color="#DBEAFE"/></linearGradient></defs>
+<path d="M280 20 C400 0 540 40 556 150 C572 260 520 380 400 408 C280 436 100 420 46 320 C-8 220 20 100 120 56 C170 34 210 28 280 20 z" fill="url(#sg)"/>
+<circle cx="52" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="52" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="76" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="76" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="100" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="100" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="124" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="124" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="148" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="148" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="172" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="172" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="196" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="196" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="220" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="220" cy="404" r="3" fill="#2563EB" opacity="0.13"/><circle cx="244" cy="380" r="3" fill="#2563EB" opacity="0.13"/><circle cx="244" cy="404" r="3" fill="#2563EB" opacity="0.13"/>
+<g transform="translate(120 96)">
+<rect x="0" y="118" width="300" height="130" rx="14" fill="#FFFFFF"/>
+<rect x="0" y="60" width="300" height="70" rx="10" fill="#2563EB"/>
+<g fill="#FFFFFF" opacity="0.9">
+<rect x="10" y="70" width="28" height="50" rx="6"/>
+<rect x="48" y="70" width="28" height="50" rx="6"/>
+<rect x="86" y="70" width="28" height="50" rx="6"/>
+<rect x="124" y="70" width="28" height="50" rx="6"/>
+<rect x="162" y="70" width="28" height="50" rx="6"/>
+<rect x="200" y="70" width="28" height="50" rx="6"/>
+<rect x="238" y="70" width="28" height="50" rx="6"/>
+<rect x="272" y="70" width="18" height="50" rx="6"/>
+</g>
+<rect x="26" y="150" width="58" height="98" rx="8" fill="#DBEAFE"/>
+<rect x="96" y="150" width="86" height="72" rx="8" fill="#EFF6FF"/>
+<rect x="104" y="158" width="70" height="56" rx="6" fill="#DBEAFE"/>
+<path d="M139 172 c1.4 7.5 4.7 10.7 12.2 12.2 -7.5 1.4 -10.8 4.7 -12.2 12.2 -1.4 -7.5 -4.7 -10.8 -12.2 -12.2 7.5 -1.5 10.8 -4.7 12.2 -12.2 z" fill="#2563EB"/>
+<rect x="196" y="150" width="86" height="72" rx="8" fill="#EFF6FF"/>
+<rect x="204" y="158" width="70" height="56" rx="6" fill="#DBEAFE"/>
+<circle cx="239" cy="186" r="17" fill="#2563EB"/>
+<circle cx="239" cy="186" r="9" fill="#93C5FD"/>
+<rect x="296" y="118" width="4" height="0" fill="none"/>
+</g>
+<g transform="translate(430 236)">
+<rect x="0" y="14" width="104" height="52" rx="10" fill="#60A5FA"/>
+<path d="M104 26 h26 l16 18 v22 h-42 z" fill="#2563EB"/>
+<rect x="110" y="32" width="22" height="16" rx="4" fill="#DBEAFE"/>
+<circle cx="26" cy="70" r="13" fill="#172554" opacity="0.75"/>
+<circle cx="26" cy="70" r="6" fill="#EFF6FF"/>
+<circle cx="86" cy="70" r="13" fill="#172554" opacity="0.75"/>
+<circle cx="86" cy="70" r="6" fill="#EFF6FF"/>
+<circle cx="120" cy="70" r="13" fill="#172554" opacity="0.75"/>
+<circle cx="120" cy="70" r="6" fill="#EFF6FF"/>
+</g>
+<g transform="translate(60 318)">
+<rect x="0" y="22" width="66" height="46" rx="8" fill="#2563EB"/>
+<rect x="8" y="0" width="50" height="30" rx="6" fill="#60A5FA"/>
+<rect x="8" y="18" width="50" height="12" fill="#60A5FA"/>
+<rect x="27" y="30" width="12" height="38" fill="#DBEAFE"/>
+<rect x="0" y="30" width="66" height="8" fill="#93C5FD"/>
+</g>
+<path d="M470 100 c2.5 15 8.5 21 23.5 23.5 -15 2.5 -21 8.5 -23.5 23.5 -2.5 -15 -8.5 -21 -23.5 -23.5 15 -2.5 21 -8.5 23.5 -23.5 z" fill="#60A5FA" opacity="0.8"/>
+<path d="M100 60 c2 12 7 16.5 19 18.5 -12 2 -17 6.5 -19 18.5 -2 -12 -7 -16.5 -19 -18.5 12 -2 17 -6.5 19 -18.5 z" fill="#93C5FD" opacity="0.9"/>
+</svg>
