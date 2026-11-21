@@ -1,15 +1,18 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from . import models
 
 
 @admin.register(models.Article)
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
+
     list_display = (
         'title',
         'author',
         'category',
         'status',
-        'comments_count',
+        'read_time',
         'created_at',
     )
 
@@ -24,7 +27,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'author__email',
     )
 
-    filter_horizontal = ('tags',)
+
 
     autocomplete_fields = ('author', 'category')
 
