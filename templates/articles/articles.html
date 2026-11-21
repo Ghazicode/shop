@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}مقالات{% endblock title %}
+
+
+
+{% block content %} 
+<nav class="breadcrumb" aria-label="مسیر صفحه"><div class="container breadcrumb-inner"><a href="index.html">خانه</a><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18 -6 -6 6 -6"/></svg></span><span aria-current="page">مقالات</span></div></nav>
+<div class="container page-main">
+  <input class="pp-radio" type="radio" name="ps" id="ps1" checked><input class="pp-radio" type="radio" name="ps" id="ps2">
+  <header class="page-head">
+    <h1>مقالات و آموزش‌های نوا</h1>
+    <p>راهنمای خرید، بررسی تخصصی و تازه‌های دنیای تکنولوژی به زبان ساده</p>
+    <form class="search-form" role="search" method="get" action="{% url 'articles:list' %}">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m21 21 -4.3 -4.3"/></svg>
+        <input type="search" name="q" placeholder="جستجوی مقاله؛ مثلاً راهنمای خرید..." value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}" aria-label="جستجوی مقالات">
+        <button class="btn btn-primary" type="submit">جستجو</button>
+      </div>
+    </form>
+  </header>
+  <nav class="pagination" aria-label="صفحه‌بندی">
+    <nav class="pagination" aria-label="صفحه‌بندی">
+
+</nav>
+
+<div class="grid-wrap">
+    <div class="page-group post-grid" data-page="1">
+        <!-- Posts -->
+    </div>
+</div>
+    
+  {% for article in articles %}
+    <article class="post-card">
+  <a class="post-media" href="{% url 'articles:detail' article.slug %}" tabindex="-1" aria-hidden="true"><img class="post-img" src="{{ article.image.url }}" alt="{{ article.title }}" width="640" height="360" loading="lazy"></a>
+  <div class="post-body">
+    <div class="post-meta-top">
+      <span class="badge badge-cat">{{ article.category.title }}</span>
+      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> {{ article.read_time }} دقیقه مطالعه</span>
+    </div>
+    <h3 class="post-title"><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></h3>
+    <p class="post-excerpt">{{ article.get_summary|safe }}</p>
+    <div class="post-meta">
+      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg>{{ article.author.user_profile.fullname }}</span>
+      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg>{{ article.created_at|date:'Y/m/d' }}</span>
+    </div>
+    <a class="btn btn-soft btn-sm post-read" href="{% url 'articles:detail' article.slug %}">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
+  </div>
+</article>
+{% endfor %}
+
+</div></div>
+
+      <nav class="pagination" aria-label="صفحه‌بندی">
+
+    <span class="pagination-label">صفحه:</span>
+
+    {% if articles.has_previous %}
+        <a href="?page={{ articles.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+           class="page-btn">قبلی</a>
+    {% endif %}
+
+    {% for num in articles.paginator.page_range %}
+        <a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+           class="page-btn {% if articles.number == num %}active{% endif %}">
+            {{ num }}
+        </a>
+    {% endfor %}
+
+    {% if articles.has_next %}
+        <a href="?page={{ articles.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+           class="page-btn active">بعدی</a>
+    {% endif %}
+
+</nav>
+  
+</div>
+{% endblock content %}

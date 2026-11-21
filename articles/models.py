@@ -22,6 +22,10 @@ class Article(models.Model):
     created_at = jmodels.jDateField(auto_now_add=True)
     updated_at = jmodels.jDateField(auto_now=True)
 
+    def get_summary(self):
+        if(len(self.content) < 40):
+            return self.content[:40]
+        return f"{self.content[:50]}..."
 
     def __str__(self):
         return self.title
