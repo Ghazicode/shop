@@ -1,0 +1,11 @@
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            iziToast.{{ message.tags }}({
+                message: '{{ message|escapejs }}',
+                position: 'topRight',
+                timeout: 3000
+            });
+        </script>
+    {% endfor %}
+{% endif %}

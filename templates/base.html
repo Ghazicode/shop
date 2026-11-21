@@ -8,8 +8,12 @@
 <meta name="description" content="فروشگاه اینترنتی نوا؛ خرید مطمئن گوشی، لپ‌تاپ، ساعت هوشمند و گجت‌های مدرن با ضمانت اصالت کالا و ارسال سریع.">
 <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
 </head>
 <body class="home">
+  {% include 'messages.html' %}
 <a class="skip-link" href="#main">پرش به محتوای اصلی</a>
 <header class="site-header" id="site-header">
   <div class="container header-inner">
@@ -19,16 +23,18 @@
     </a>
     <nav class="main-nav" id="main-nav" aria-label="ناوبری اصلی">
       <ul><li><a href="index.html" class="active" aria-current="page">خانه</a></li><li><a href="products.html">محصولات</a></li><li><a href="posts.html">مقالات</a></li><li><a href="about.html">درباره ما</a></li><li><a href="wishlist.html">علاقه‌مندی‌ها</a></li></ul>
-      <div class="nav-drawer-actions">
-        <a class="btn btn-soft" href="user_dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> پنل کاربری</a>
-        <a class="btn btn-outline" href="cart.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg> سبد خرید</a>
-        <a class="btn btn-primary" href="login.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3 h4 a2 2 0 0 1 2 2 v14 a2 2 0 0 1 -2 2 h-4"/><path d="m10 17 5 -5 -5 -5"/><path d="M15 12 H3"/></svg> ورود به حساب</a>
-      </div>
     </nav>
     <div class="header-actions">
-      <a href="user_dashboard.html" class="btn btn-ghost btn-header" title="پنل کاربری"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg><span class="btn-label">پنل کاربری</span></a>
+      {% if request.user.is_authenticated %}
+      <a href="user_dashboard.html" class="btn btn-ghost btn-header" title="پنل کاربری"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg><span class="btn-label">{{ request.user.user_profile.fullname }}</span></a>
+      {% endif %}
       <a href="cart.html" class="btn btn-outline btn-header btn-cart" title="سبد خرید"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span class="btn-label">سبد خرید</span><span class="cart-badge" aria-label="۳ محصول در سبد">۳</span></a>
-      <a href="login.html" class="btn btn-primary btn-header" title="ورود"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3 h4 a2 2 0 0 1 2 2 v14 a2 2 0 0 1 -2 2 h-4"/><path d="m10 17 5 -5 -5 -5"/><path d="M15 12 H3"/></svg><span class="btn-label">ورود</span></a>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}" class="btn btn-danger btn-header" title="خروج"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3 h4 a2 2 0 0 1 2 2 v14 a2 2 0 0 1 -2 2 h-4"/><path d="m10 17 5 -5 -5 -5"/><path d="M15 12 H3"/></svg><span class="btn-label">خروج</span></a>
+      
+      {% else %}
+        <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-header" title="ورود"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3 h4 a2 2 0 0 1 2 2 v14 a2 2 0 0 1 -2 2 h-4"/><path d="m10 17 5 -5 -5 -5"/><path d="M15 12 H3"/></svg><span class="btn-label">ورود</span></a>
+      {% endif %}
       <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="باز و بسته کردن منو">
         <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
       </button>
