@@ -315,99 +315,29 @@ NOVA | فروشگاه اینترنتی تکنولوژی
     <h2 class="section-title">آخرین مقالات</h2>
     <p class="section-desc">آموزش، بررسی تخصصی و راهنمای خرید از کارشناسان نوا</p>
   </div>
-  <a class="btn btn-outline section-more" href="posts.html">مشاهده تمام مقالات <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
+  <a class="btn btn-outline section-more" href="{% url 'articles:list' %}">مشاهده تمام مقالات <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
 </div>
-    <div class="post-grid"><article class="post-card">
-  <a class="post-media" href="post_detail.html" tabindex="-1" aria-hidden="true"><img class="post-img" src="assets/img/posts/post01.svg" alt="راهنمای کامل خرید هدفون بی‌سیم در سال ۱۴۰۵" width="640" height="360" loading="lazy"></a>
+    <div class="post-grid">
+
+{% for article in articles %}
+  <article class="post-card">
+  <a class="post-media" href="{% url 'articles:detail' article.slug %}" tabindex="-1" aria-hidden="true"><img class="post-img" src="{{ article.image.url }}" alt="{{ article.title }}" width="640" height="360" loading="lazy"></a>
   <div class="post-body">
     <div class="post-meta-top">
-      <span class="badge badge-cat">راهنمای خرید</span>
-      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> ۸ دقیقه مطالعه</span>
+      <span class="badge badge-cat">{{ article.category.title }}</span>
+      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> {{ article.read_time }} دقیقه مطالعه</span>
     </div>
-    <h3 class="post-title"><a href="post_detail.html">راهنمای کامل خرید هدفون بی‌سیم در سال ۱۴۰۵</a></h3>
-    <p class="post-excerpt">از نویزکنسلینگ تا عمر باتری؛ هر آنچه باید پیش از خرید هدفون بی‌سیم بدانید تا انتخابی مطمئن داشته باشید.</p>
+    <h3 class="post-title"><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></h3>
+    <p class="post-excerpt">{{ article.get_summary|safe }}</p>
     <div class="post-meta">
-      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> سارا محمدی</span>
-      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg> ۲۸ آبان ۱۴۰۵</span>
+      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg>{{ article.author.user_profile.fullname }}</span>
+      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg>{{ article.created_at|date:'Y/m/d' }}</span>
     </div>
-    <a class="btn btn-soft btn-sm post-read" href="post_detail.html">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
+    <a class="btn btn-soft btn-sm post-read" href="{% url 'articles:detail' article.slug %}">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
   </div>
-</article><article class="post-card">
-  <a class="post-media" href="post_detail.html" tabindex="-1" aria-hidden="true"><img class="post-img" src="assets/img/posts/post02.svg" alt="۱۰ ترفند طلایی برای افزایش عمر باتری گوشی" width="640" height="360" loading="lazy"></a>
-  <div class="post-body">
-    <div class="post-meta-top">
-      <span class="badge badge-cat">آموزش</span>
-      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> ۶ دقیقه مطالعه</span>
-    </div>
-    <h3 class="post-title"><a href="post_detail.html">۱۰ ترفند طلایی برای افزایش عمر باتری گوشی</a></h3>
-    <p class="post-excerpt">با این تنظیمات ساده اما مؤثر، باتری گوشی شما تا ۴۰ درصد دیرتر خالی می‌شود.</p>
-    <div class="post-meta">
-      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> علی رضایی</span>
-      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg> ۲۶ آبان ۱۴۰۵</span>
-    </div>
-    <a class="btn btn-soft btn-sm post-read" href="post_detail.html">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
-  </div>
-</article><article class="post-card">
-  <a class="post-media" href="post_detail.html" tabindex="-1" aria-hidden="true"><img class="post-img" src="assets/img/posts/post03.svg" alt="بهترین لپ‌تاپ‌ها برای برنامه‌نویسی در ۱۴۰۵" width="640" height="360" loading="lazy"></a>
-  <div class="post-body">
-    <div class="post-meta-top">
-      <span class="badge badge-cat">بررسی تخصصی</span>
-      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> ۱۱ دقیقه مطالعه</span>
-    </div>
-    <h3 class="post-title"><a href="post_detail.html">بهترین لپ‌تاپ‌ها برای برنامه‌نویسی در ۱۴۰۵</a></h3>
-    <p class="post-excerpt">مقایسه دقیق پردازنده، رم و نمایشگر در لپ‌تاپ‌های محبوب توسعه‌دهندگان ایرانی.</p>
-    <div class="post-meta">
-      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> مریم حسینی</span>
-      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg> ۲۴ آبان ۱۴۰۵</span>
-    </div>
-    <a class="btn btn-soft btn-sm post-read" href="post_detail.html">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
-  </div>
-</article><article class="post-card">
-  <a class="post-media" href="post_detail.html" tabindex="-1" aria-hidden="true"><img class="post-img" src="assets/img/posts/post04.svg" alt="تکنولوژی‌هایی که سال ۱۴۰۵ را متحول می‌کنند" width="640" height="360" loading="lazy"></a>
-  <div class="post-body">
-    <div class="post-meta-top">
-      <span class="badge badge-cat">تکنولوژی</span>
-      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> ۹ دقیقه مطالعه</span>
-    </div>
-    <h3 class="post-title"><a href="post_detail.html">تکنولوژی‌هایی که سال ۱۴۰۵ را متحول می‌کنند</a></h3>
-    <p class="post-excerpt">از هوش مصنوعی مولد تا اینترنت اشیا؛ نگاهی به روندهای بزرگ فناوری در سال جاری.</p>
-    <div class="post-meta">
-      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> حسین کریمی</span>
-      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg> ۲۲ آبان ۱۴۰۵</span>
-    </div>
-    <a class="btn btn-soft btn-sm post-read" href="post_detail.html">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
-  </div>
-</article><article class="post-card">
-  <a class="post-media" href="post_detail.html" tabindex="-1" aria-hidden="true"><img class="post-img" src="assets/img/posts/post05.svg" alt="چگونه با گوشی خود عکس‌های حرفه‌ای بگیریم؟" width="640" height="360" loading="lazy"></a>
-  <div class="post-body">
-    <div class="post-meta-top">
-      <span class="badge badge-cat">آموزش</span>
-      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> ۷ دقیقه مطالعه</span>
-    </div>
-    <h3 class="post-title"><a href="post_detail.html">چگونه با گوشی خود عکس‌های حرفه‌ای بگیریم؟</a></h3>
-    <p class="post-excerpt">اصول نور، ترکیب‌بندی و ویرایش؛ راهنمای عملی عکاسی با دوربین موبایل.</p>
-    <div class="post-meta">
-      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> نگار احمدی</span>
-      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg> ۲۰ آبان ۱۴۰۵</span>
-    </div>
-    <a class="btn btn-soft btn-sm post-read" href="post_detail.html">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
-  </div>
-</article><article class="post-card">
-  <a class="post-media" href="post_detail.html" tabindex="-1" aria-hidden="true"><img class="post-img" src="assets/img/posts/post06.svg" alt="کدام ساعت هوشمند برای شما مناسب است؟" width="640" height="360" loading="lazy"></a>
-  <div class="post-body">
-    <div class="post-meta-top">
-      <span class="badge badge-cat">راهنمای خرید</span>
-      <span class="post-minutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg> ۸ دقیقه مطالعه</span>
-    </div>
-    <h3 class="post-title"><a href="post_detail.html">کدام ساعت هوشمند برای شما مناسب است؟</a></h3>
-    <p class="post-excerpt">مقایسه امکانات سلامت، عمر باتری و قیمت در محبوب‌ترین ساعت‌های هوشمند بازار.</p>
-    <div class="post-meta">
-      <span class="post-author"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> امیر تهرانی</span>
-      <span class="post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg> ۱۸ آبان ۱۴۰۵</span>
-    </div>
-    <a class="btn btn-soft btn-sm post-read" href="post_detail.html">مطالعه مقاله <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
-  </div>
-</article></div>
+</article>
+{% endfor %}
+</div>
   </div>
 </section>
 <section class="section">

@@ -4,6 +4,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django_jalali.db import models as jmodels
 from django.core.validators import RegexValidator
 from accounts.validators import validate_iranian_cellphone_number
 
@@ -89,3 +90,20 @@ class Profile(models.Model):
 def create_profile(sender,instance,created,**kwargs):
     if created:
         Profile.objects.create(user=instance, pk=instance.pk)
+
+
+
+class Contact(models.Model):
+    fullname = models.CharField(max_length=250)
+    email = models.EmailField()
+    subject = models.CharField(max_length=250)
+    message = models.TextField()
+    status = models.BooleanField(default=False)
+    created_at = jmodels.jDateField(auto_now_add=True)
+    updated_at = jmodels.jDateField(auto_now=True)
+
+
+    class Meta:
+        ordering = ['-id', ]
+    def __str__(self):
+        return self.fullname

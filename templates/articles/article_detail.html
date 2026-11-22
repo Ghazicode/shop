@@ -34,6 +34,7 @@
   </aside>
 </article>
 <section class="comments-section">
+  {% if comments %}
   <h2 class="comments-title">دیدگاه کاربران <span class="comments-count"> دیدگاه</span></h2>
   <ul class="comments-list">
     {% for comment in comments %}
@@ -71,6 +72,10 @@
     {% endif %}
 
 </nav>
+
+{% endif %}
+
+
     {% if request.user.is_authenticated %}
   <form class="comment-form" method="post" action="{% url 'articles:comments' article.slug %}">
     {% csrf_token %}

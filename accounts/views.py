@@ -28,7 +28,8 @@ class LoginView(View):
                 login(request, user)
                 messages.success(request, 'با موفقیت وارد شدید')
                 return redirect('home:index')
-            messages.warning(request, 'کاربر یافت نشد')
+            else:
+                messages.warning(request, 'کاربر یافت نشد')
             return redirect('accounts:login')
         else:
             messages.error(request, 'اطلاعات وارد شده صحیح نمیباشد')

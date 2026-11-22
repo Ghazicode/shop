@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Profile
+from . import models
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -71,7 +71,7 @@ class CustomProfileAdmin(admin.ModelAdmin):
     searching_fields = ("user","fullname","phone_number")
 
 
-admin.site.register(Profile,CustomProfileAdmin)
+admin.site.register(models.Profile,CustomProfileAdmin)
 admin.site.register(User, CustomUserAdmin)
 
 from django.contrib.sessions.models import Session
@@ -81,3 +81,13 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ['session_key', '_session_data', 'expire_date']
     readonly_fields = ['_session_data']
 admin.site.register(Session, SessionAdmin)
+
+
+
+
+@admin.register(models.Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('fullname', 'email', 'subject', 'status', 'created_at')
+    list_filter = ('status', )
+    search_fields = ('fullname', 'message', 'email', 'subject')
+    
