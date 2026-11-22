@@ -79,6 +79,7 @@ class RegisterView(View):
 
 
                 messages.success(request, 'ثبت نام با موفقیت انجام شد')
+
                 return redirect('accounts:login')
             except Exception as e:
                 messages.error(request, 'خطایی هنگام ثبت نام رخ داد')

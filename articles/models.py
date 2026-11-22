@@ -23,9 +23,9 @@ class Article(models.Model):
     updated_at = jmodels.jDateField(auto_now=True)
 
     def get_summary(self):
-        if(len(self.content) < 40):
-            return self.content[:40]
-        return f"{self.content[:50]}..."
+        if(len(self.content) < 30):
+            return self.content
+        return f"{self.content[:30]}..."
 
     def __str__(self):
         return self.title
@@ -79,7 +79,8 @@ class Comment(models.Model):
     updated_at = jmodels.jDateField(auto_now=True)
 
 
-
+    class Meta:
+        ordering = ['-id', ]
     def __str__(self):
         return self.article.title
 
