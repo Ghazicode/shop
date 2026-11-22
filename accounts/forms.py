@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 import re
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from . import models
 
 
 
@@ -99,3 +100,38 @@ class RegisterForm(forms.Form):
 
 
 
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = models.Contact
+        exclude = ('status', 'created_at', 'updated_at')
+        widgets={
+            'fullname':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'ct-fullname',
+                    'placeholder':'نام و نام خانوادگی خود را وارد نمایید'
+                }
+            ),
+            'email':forms.EmailInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'ct-email',
+                    'placeholder':'ایمیل خود را وارد نمایید'
+                }
+            ),
+            'subject':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'ct-subject',
+                    'placeholder':'موضوع پیام خود را وارد نمایید'
+                }
+            ),
+            'message':forms.Textarea(
+                attrs={
+                    'class':'form-control',
+                    'id':'ct-text',
+                    'placeholder':'پیام خود را بنویسید',
+                    'rows':5
+                }
+            ),
+        }

@@ -200,23 +200,36 @@
           <a href="#" aria-label="یوتیوب نوا"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="m10.5 9.5 4.5 2.5 -4.5 2.5 z"/></svg></a>
         </div>
       </div>
-      <form class="contact-form" method="post" action="about.html">
+      <form class="contact-form" method="post" action="{% url 'home:about' %}">
+        {% csrf_token %}
         <div class="form-grid">
           <div class="form-group">
-            <label class="form-label" for="ct-name">نام و نام خانوادگی</label>
-            <input class="form-control" id="ct-name" name="name" type="text" required placeholder="نام شما">
+            <label class="form-label" for="ct-fullname">نام و نام خانوادگی</label>
+            {{ form.fullname }}
+            {% for error in form.fullname.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
           </div>
           <div class="form-group">
             <label class="form-label" for="ct-email">ایمیل</label>
-            <input class="form-control" id="ct-email" name="email" type="email" required placeholder="example@mail.com">
+            {{ form.email }}
+            {% for error in form.email.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
           </div>
           <div class="form-group full">
             <label class="form-label" for="ct-subject">موضوع پیام</label>
-            <input class="form-control" id="ct-subject" name="subject" type="text" placeholder="مثلاً پیگیری سفارش، مشاوره خرید...">
+            {{ form.subject }}
+            {% for error in form.subject.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
           </div>
           <div class="form-group full">
             <label class="form-label" for="ct-text">متن پیام</label>
-            <textarea class="form-control" id="ct-text" name="message" rows="5" required placeholder="پیام خود را بنویسید..."></textarea>
+            {{ form.message }}
+            {% for error in form.message.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
           </div>
         </div>
         <button class="btn btn-primary btn-lg" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 2 11 13"/><path d="M22 2 15 22 l-4 -9 -9 -4 z"/></svg> ارسال پیام</button>
