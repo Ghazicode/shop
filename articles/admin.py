@@ -29,9 +29,6 @@ class ArticleAdmin(SummernoteModelAdmin):
 
 
 
-    autocomplete_fields = ('author', 'category')
-
-    list_select_related = ('author', 'category')
 
 
     @admin.display(description='تعداد نظرات')
