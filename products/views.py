@@ -38,6 +38,11 @@ class ProductDetailView(View):
         products = Product.objects.filter(status=ProductStatus.ACTIVE).exclude(
             slug=slug
         )[:4]
+        if request.user.is_authenticated:
+
+            product.is_wishlisted = product.wishlist.filter(user=request.user).exists()
+            for item in products:
+                item.is_wishlisted = item.wishlist.filter(user=request.user).exists()
         return render(
             request,
             "products/product_detail.html",
@@ -49,44 +54,85 @@ class WishListView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("accounts:login")
-        wishlist = WishList.objects.filter(user=request.user)
-        return render(request, "products/wishlist.html", {"wishlist": wishlist})
+
+        wishlist = WishList.objects.filter(
+            user=request.user
+        ).select_related("product")
+
+        return render(
+            request,
+            "products/wishlist.html",
+            {"wishlist": wishlist}
+        )
 
 
 class CreateWishListView(View):
     def post(self, request):
         if not request.user.is_authenticated:
             return redirect("accounts:login")
-        if slug := request.POST.get("product"):
-            product = get_object_or_404(Product, slug=slug, status=ProductStatus.ACTIVE)
-            if WishList.objects.filter(product=product, user=request.user).exists():
-                messages.error(request, "محصول قبلا به لیست اضافه شده")
-                return redirect("products:wishlist")
-            WishList.objects.create(user=request.user, product=product)
-            messages.success(request, "محصول با موفقیت به لیست علاقه مندی ها اضافه شد")
-            return redirect("products:wishlist")
-        else:
+
+        slug = request.POST.get("product")
+
+        if not slug:
             messages.error(request, "محصول یافت نشد")
-            return redirect("product:list")
+            return redirect("products:list")
+
+        product = get_object_or_404(
+            Product,
+            slug=slug,
+            status=ProductStatus.ACTIVE
+        )
+
+        wishlist, created = WishList.objects.get_or_create(
+            user=request.user,
+            product=product
+        )
+
+        if created:
+            messages.success(
+                request,
+                "محصول با موفقیت به لیست علاقه‌مندی‌ها اضافه شد"
+            )
+        else:
+            messages.error(
+                request,
+                "محصول قبلاً به لیست علاقه‌مندی‌ها اضافه شده است"
+            )
+
+        return redirect("products:wishlist")
 
 
 class DeleteWishListView(View):
     def post(self, request):
         if not request.user.is_authenticated:
             return redirect("accounts:login")
-        if slug := request.POST.get("product"):
-            product = get_object_or_404(Product, slug=slug, status=ProductStatus.ACTIVE)
-            if WishList.objects.filter(product=product, user=request.user).exists():
-                item = get_object_or_404(WishList, user=request.user, product=product)
-                if item:
-                    item.delete()
-                    messages.success(
-                        request, "محصول با موفقیت از لیست علاقه مندی ها حذف شد"
-                    )
-                return redirect("products:wishlist")
-            else:
-                messages.error(request, "محصول داخل لیست علاقه مندی ها نیست")
-                return redirect("products:wishlist")
-        else:
+
+        slug = request.POST.get("product")
+
+        if not slug:
             messages.error(request, "محصول یافت نشد")
-            return redirect("product:list")
+            return redirect("products:list")
+
+        product = get_object_or_404(
+            Product,
+            slug=slug,
+            status=ProductStatus.ACTIVE
+        )
+
+        deleted_count, _ = WishList.objects.filter(
+            user=request.user,
+            product=product
+        ).delete()
+
+        if deleted_count:
+            messages.success(
+                request,
+                "محصول با موفقیت از لیست علاقه‌مندی‌ها حذف شد"
+            )
+        else:
+            messages.error(
+                request,
+                "محصول داخل لیست علاقه‌مندی‌ها نیست"
+            )
+
+        return redirect("products:wishlist")

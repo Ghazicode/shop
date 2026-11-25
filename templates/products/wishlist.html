@@ -1,58 +1,168 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load static %}
 
-
-{% block title %}لیست علاقه مندی ها{% endblock title %}
-
-
+{% block title %}لیست علاقه‌مندی‌ها{% endblock title %}
 
 {% block content %}
 
 <div class="container page-main">
-  <header class="page-head">
-    <h1>لیست علاقه‌مندی‌ها</h1>
-    <p>محصولاتی که به آن‌ها علاقه دارید؛ هر زمان بخواهید به سبد خرید اضافه کنید</p>
-  </header>
-  <div class="grid-wrap"><div class="product-grid wishlist-grid">
-    
-    
-    {% for item in wishlist %}
-<article class="product-card">
-  <div class="card-media">
-    <a class="card-img-link" href="{% url 'products:detail' item.product.slug %}" tabindex="-1" aria-hidden="true"><img class="card-img" src="{{ item.product.image.url }}" alt="{{ item.product.title }}" width="400" height="400" loading="lazy"></a>
-    {% if item.product.discount_percent %}
-    <span class="badge badge-off">٪{{ item.product.discount_percent }} تخفیف</span>
-    {% endif %}
-    
-    <form class="card-wish" method="post" action="{% url 'products:delete_wishlist' %}">
-        {% csrf_token %}
-        <input type="hidden" name="product" value="{{ item.product.slug }}"><button class="icon-btn icon-btn-danger" type="submit" aria-label="حذف «ساعت هوشمند نووا اس۳ | آبی» از علاقه‌مندی‌ها" title="حذف از علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6 h18"/><path d="M19 6 v14 a2 2 0 0 1 -2 2 H7 a2 2 0 0 1 -2 -2 V6"/><path d="M8 6 V4 a2 2 0 0 1 2 -2 h4 a2 2 0 0 1 2 2 v2"/><path d="M10 11 v6 M14 11 v6"/></svg></button></form>
-  </div>
-  <div class="card-body">
-    <span class="card-cat">{{ item.product.category.title }}</span>
-    <h3 class="card-title"><a href="{% url 'products:detail' item.product.slug %}">{{ item.product.title }}</a></h3>
-    <p class="card-desc">{{ item.product.get_summary }}</p>
-    <div class="card-price">
-      {% if item.product.discount_percent %}
-      <del class="price-old">{{ item.product.price|intcomma }}<small>تومان</small></del>
-      {% endif %}
-      <strong class="price-new">{% if item.product.discount_percent %}{{ item.product.final_price|intcomma }}{% else %}{{ item.product.price|intcomma }}{% endif %}<small>تومان</small></strong>
-    </div>
-    <div class="card-actions">
-      <a class="btn btn-outline btn-sm" href="{% url 'products:detail' item.product.slug %}">مشاهده محصول</a>
-      <form method="post" action="cart.html">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="product_id" value="p1">
-        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
-      </form>
-    </div>
-  </div>
-</article>
 
-{% endfor %}
+    <header class="page-head">
+        <h1>لیست علاقه‌مندی‌ها</h1>
+        <p>
+            محصولاتی که به آن‌ها علاقه دارید؛ هر زمان بخواهید به سبد خرید اضافه کنید.
+        </p>
+    </header>
 
-</div></div>
+    <div class="grid-wrap">
+        <div class="product-grid wishlist-grid">
+
+            {% for item in wishlist %}
+
+                <article class="product-card">
+
+                    <div class="card-media">
+
+                        <a
+                            class="card-img-link"
+                            href="{% url 'products:detail' item.product.slug %}"
+                            tabindex="-1"
+                            aria-hidden="true"
+                        >
+                            {% if item.product.image %}
+                                <img
+                                    class="card-img"
+                                    src="{{ item.product.image.url }}"
+                                    alt="{{ item.product.title }}"
+                                    width="400"
+                                    height="400"
+                                    loading="lazy"
+                                >
+                            {% else %}
+                                <img
+                                    class="card-img"
+                                    src="{% static 'img/product.jpg' %}"
+                                    alt="{{ item.product.title }}"
+                                    width="400"
+                                    height="400"
+                                    loading="lazy"
+                                >
+                            {% endif %}
+                        </a>
+
+                        {% if item.product.discount_percent %}
+                            <span class="badge badge-off">
+                                ٪{{ item.product.discount_percent }} تخفیف
+                            </span>
+                        {% endif %}
+
+                        <form
+                            class="card-wish"
+                            method="post"
+                            action="{% url 'products:delete_wishlist' %}"
+                        >
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="product"
+                                value="{{ item.product.slug }}"
+                            >
+
+                            <button
+                                class="icon-btn icon-btn-danger"
+                                type="submit"
+                                aria-label="حذف {{ item.product.title }} از علاقه‌مندی‌ها"
+                                title="حذف از علاقه‌مندی‌ها"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                >
+                                    <path d="M3 6 h18"/>
+                                    <path d="M19 6 v14 a2 2 0 0 1 -2 2 H7 a2 2 0 0 1 -2 -2 V6"/>
+                                    <path d="M8 6 V4 a2 2 0 0 1 2 -2 h4 a2 2 0 0 1 2 2 v2"/>
+                                    <path d="M10 11 v6 M14 11 v6"/>
+                                </svg>
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <span class="card-cat">
+                            {{ item.product.category.title }}
+                        </span>
+
+                        <h3 class="card-title">
+                            <a href="{% url 'products:detail' item.product.slug %}">
+                                {{ item.product.title }}
+                            </a>
+                        </h3>
+
+                        <p class="card-desc">
+                            {{ item.product.get_summary }}
+                        </p>
+
+                        <div class="card-price">
+
+                            {% if item.product.discount_percent %}
+                                <del class="price-old">
+                                    {{ item.product.price|intcomma }}
+                                    <small>تومان</small>
+                                </del>
+                            {% endif %}
+
+                            <strong class="price-new">
+                                {{ item.product.final_price|intcomma }}
+                                <small>تومان</small>
+                            </strong>
+
+                        </div>
+
+                        <div class="card-actions">
+
+                            <a
+                                class="btn btn-outline btn-sm"
+                                href="{% url 'products:detail' item.product.slug %}"
+                            >
+                                مشاهده محصول
+                            </a>
+
+                            {# فرم افزودن به سبد خرید را بعداً به View واقعی متصل کن #}
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <div class="empty-state">
+                    <h3>لیست علاقه‌مندی‌های شما خالی است!</h3>
+                    <p>
+                        هنوز محصولی به لیست علاقه‌مندی‌های خود اضافه نکرده‌اید.
+                    </p>
+
+                    <a href="{% url 'products:list' %}" class="btn btn-primary">
+                        مشاهده محصولات
+                    </a>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
 </div>
-
 
 {% endblock content %}

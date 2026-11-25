@@ -92,7 +92,13 @@ class WishList(models.Model):
     updated_at = jmodels.jDateField(auto_now=True)
 
     class Meta:
-        ordering = ["-id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "product"],
+                name="unique_user_product_wishlist"
+            )
+        ]
+        ordering = ['-id']
 
     def __str__(self):
         return self.product.title
