@@ -17,12 +17,12 @@
 <a class="skip-link" href="#main">پرش به محتوای اصلی</a>
 <header class="site-header" id="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="brand" aria-label="NOVA - صفحه اصلی فروشگاه">
+    <a href="{% url 'home:index' %}" class="brand" aria-label="NOVA - صفحه اصلی فروشگاه">
       <svg class="brand-mark" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><defs><linearGradient id="lg-h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#60A5FA"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="14" fill="#EFF6FF"/><path d="M24 9c1.7 8.6 5.9 12.8 14.5 14.5C29.9 25.2 25.7 29.4 24 38c-1.7-8.6-5.9-12.8-14.5-14.5C18.1 21.8 22.3 17.6 24 9z" fill="url(#lg-h)"/><circle cx="34" cy="14" r="3" fill="#93C5FD"/></svg>
       <span class="brand-text"><span class="brand-name">NOVA</span><span class="brand-sub">فروشگاه اینترنتی</span></span>
     </a>
     <nav class="main-nav" id="main-nav" aria-label="ناوبری اصلی">
-      <ul><li><a href="{% url 'home:index' %}" class="active" aria-current="page">خانه</a></li><li><a href="#">محصولات</a></li><li><a href="{% url 'articles:list' %}">مقالات</a></li><li><a href="about.html">درباره ما</a></li><li><a href="wishlist.html">علاقه‌مندی‌ها</a></li></ul>
+      <ul><li><a href="{% url 'home:index' %}" class="active" aria-current="page">خانه</a></li><li><a href="{% url 'products:list' %}">محصولات</a></li><li><a href="{% url 'articles:list' %}">مقالات</a></li><li><a href="{% url 'home:about' %}">درباره ما</a></li><li><a href="{% url 'products:wishlist' %}">علاقه‌مندی‌ها</a></li></ul>
     </nav>
     <div class="header-actions">
       {% if request.user.is_authenticated %}
@@ -50,7 +50,7 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="brand" aria-label="NOVA - صفحه اصلی">
+      <a href="{% url 'home:index' %}" class="brand" aria-label="NOVA - صفحه اصلی">
         <svg class="brand-mark" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><defs><linearGradient id="lg-f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#60A5FA"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="14" fill="#EFF6FF"/><path d="M24 9c1.7 8.6 5.9 12.8 14.5 14.5C29.9 25.2 25.7 29.4 24 38c-1.7-8.6-5.9-12.8-14.5-14.5C18.1 21.8 22.3 17.6 24 9z" fill="url(#lg-f)"/><circle cx="34" cy="14" r="3" fill="#93C5FD"/></svg>
         <span class="brand-text"><span class="brand-name">NOVA</span><span class="brand-sub">فروشگاه اینترنتی</span></span>
       </a>
@@ -66,18 +66,18 @@
     <nav class="footer-col" aria-label="دسترسی سریع">
       <h3 class="footer-title">دسترسی سریع</h3>
       <ul>
-        <li><a href="index.html">صفحه اصلی</a></li>
-        <li><a href="products.html">محصولات</a></li>
-        <li><a href="posts.html">مقالات</a></li>
-        <li><a href="about.html">درباره ما</a></li>
-        <li><a href="wishlist.html">علاقه‌مندی‌ها</a></li>
+        <li><a href="{% url 'home:index' %}">صفحه اصلی</a></li>
+        <li><a href="{% url 'products:list' %}">محصولات</a></li>
+        <li><a href="{% url 'articles:list' %}">مقالات</a></li>
+        <li><a href="{% url 'home:about' %}">درباره ما</a></li>
+        <li><a href="{% url 'products:wishlist' %}">علاقه‌مندی‌ها</a></li>
       </ul>
     </nav>
     <nav class="footer-col" aria-label="لینک‌های کاربردی">
       <h3 class="footer-title">لینک‌های کاربردی</h3>
       <ul>
-        <li><a href="login.html">ورود به حساب</a></li>
-        <li><a href="register.html">ثبت‌نام</a></li>
+        <li><a href="{% url 'accounts:login' %}">ورود به حساب</a></li>
+        <li><a href="{% url 'accounts:register' %}">ثبت‌نام</a></li>
         <li><a href="cart.html">سبد خرید</a></li>
         <li><a href="order.html">ثبت سفارش</a></li>
         <li><a href="user_dashboard.html">پنل کاربری</a></li>

@@ -4532,3 +4532,12 @@ body.auth main {
 .follow-btn i {
     font-size: 12px;
 }
+
+
+
+.icon-active{
+  color: var(--error);
+  border-color: var(--error-border);
+  background: var(--error-bg);
+  transform: translateY(-2px);
+}

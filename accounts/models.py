@@ -57,7 +57,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
     type = models.IntegerField(
-        choices=UserType.choices, default=UserType.customer.value)
+        choices=UserType.choices, default=UserType.customer.value
+    )
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -69,28 +70,28 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
-
 
 
 class Profile(models.Model):
-    user = models.OneToOneField('User', on_delete=models.CASCADE,related_name="user_profile")
+    user = models.OneToOneField(
+        "User", on_delete=models.CASCADE, related_name="user_profile"
+    )
     fullname = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=12, validators=[validate_iranian_cellphone_number])
-    image = models.ImageField(upload_to="profile/",default="profile/default.png")
+    phone_number = models.CharField(
+        max_length=12, validators=[validate_iranian_cellphone_number]
+    )
+    image = models.ImageField(upload_to="profile/", default="profile/default.png")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
-
     def __str__(self):
         return self.user.email
-    
 
-@receiver(post_save,sender=User)
-def create_profile(sender,instance,created,**kwargs):
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance, pk=instance.pk)
-
 
 
 class Contact(models.Model):
@@ -102,8 +103,10 @@ class Contact(models.Model):
     created_at = jmodels.jDateField(auto_now_add=True)
     updated_at = jmodels.jDateField(auto_now=True)
 
-
     class Meta:
-        ordering = ['-id', ]
+        ordering = [
+            "-id",
+        ]
+
     def __str__(self):
         return self.fullname

@@ -5,73 +5,65 @@ from . import models
 
 @admin.register(models.Article)
 class ArticleAdmin(SummernoteModelAdmin):
-    summernote_fields = ('content',)
+    summernote_fields = ("content",)
 
     list_display = (
-        'title',
-        'author',
-        'category',
-        'status',
-        'read_time',
-        'created_at',
+        "title",
+        "author",
+        "category",
+        "status",
+        "read_time",
+        "created_at",
     )
 
     list_filter = (
-        'status',
-        'category',
+        "status",
+        "category",
     )
 
     search_fields = (
-        'title',
-        'content',
-        'author__email',
+        "title",
+        "content",
+        "author__email",
     )
 
-
-
-
-
-    @admin.display(description='تعداد نظرات')
+    @admin.display(description="تعداد نظرات")
     def comments_count(self, obj):
         return obj.comments.count()
 
     actions = (
-        'publish_articles',
-        'archive_articles',
-        'draft_articles',
+        "publish_articles",
+        "archive_articles",
+        "draft_articles",
     )
 
-    @admin.action(description='انتشار مقالات انتخاب‌شده')
+    @admin.action(description="انتشار مقالات انتخاب‌شده")
     def publish_articles(self, request, queryset):
-        queryset.update(status='published')
+        queryset.update(status="published")
 
-    @admin.action(description='بایگانی مقالات انتخاب‌شده')
+    @admin.action(description="بایگانی مقالات انتخاب‌شده")
     def archive_articles(self, request, queryset):
-        queryset.update(status='archived')
+        queryset.update(status="archived")
 
-    @admin.action(description='تبدیل به پیش‌نویس')
+    @admin.action(description="تبدیل به پیش‌نویس")
     def draft_articles(self, request, queryset):
-        queryset.update(status='draft')
+        queryset.update(status="draft")
 
 
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
-        'title',
-        'slug',
-        'articles_count',
-        'created_at',
+        "title",
+        "slug",
+        "articles_count",
+        "created_at",
     )
 
-    search_fields = ('title', 'slug')
+    search_fields = ("title", "slug")
 
-    prepopulated_fields = {
-        'slug': ('title',)
-    }
+    prepopulated_fields = {"slug": ("title",)}
 
-
-
-    @admin.display(description='تعداد مقالات')
+    @admin.display(description="تعداد مقالات")
     def articles_count(self, obj):
         return obj.articles.count()
 
@@ -79,15 +71,14 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = (
-        'title',
-        'articles_count',
-        'created_at',
+        "title",
+        "articles_count",
+        "created_at",
     )
 
-    search_fields = ('title',)
+    search_fields = ("title",)
 
-
-    @admin.display(description='تعداد مقالات')
+    @admin.display(description="تعداد مقالات")
     def articles_count(self, obj):
         return obj.articles.count()
 
@@ -95,52 +86,48 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(models.Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
-        'fullname',
-        'author',
-        'article',
-        'status',
-        'created_at',
+        "fullname",
+        "author",
+        "article",
+        "status",
+        "created_at",
     )
 
-    list_filter = (
-        'status',
-    )
+    list_filter = ("status",)
 
     search_fields = (
-        'fullname',
-        'comment',
-        'author__email',
-        'article__title',
+        "fullname",
+        "comment",
+        "author__email",
+        "article__title",
     )
 
     autocomplete_fields = (
-        'author',
-        'article',
+        "author",
+        "article",
     )
 
-    list_editable = ('status',)
+    list_editable = ("status",)
 
     list_select_related = (
-        'author',
-        'article',
+        "author",
+        "article",
     )
-
-
 
     actions = (
-        'approve_comments',
-        'reject_comments',
-        'pending_comments',
+        "approve_comments",
+        "reject_comments",
+        "pending_comments",
     )
 
-    @admin.action(description='تأیید نظرات انتخاب‌شده')
+    @admin.action(description="تأیید نظرات انتخاب‌شده")
     def approve_comments(self, request, queryset):
-        queryset.update(status='approved')
+        queryset.update(status="approved")
 
-    @admin.action(description='رد نظرات انتخاب‌شده')
+    @admin.action(description="رد نظرات انتخاب‌شده")
     def reject_comments(self, request, queryset):
-        queryset.update(status='rejected')
+        queryset.update(status="rejected")
 
-    @admin.action(description='انتقال به انتظار تأیید')
+    @admin.action(description="انتقال به انتظار تأیید")
     def pending_comments(self, request, queryset):
-        queryset.update(status='pending')
+        queryset.update(status="pending")

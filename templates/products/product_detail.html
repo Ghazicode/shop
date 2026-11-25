@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block title %}{{ product.title }}{% endblock title %}
+
+
+
+
+{% block content %}
+
+<nav class="breadcrumb" aria-label="مسیر صفحه"><div class="container breadcrumb-inner"><a href="index.html">خانه</a><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18 -6 -6 6 -6"/></svg></span><a href="products.html">محصولات</a><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18 -6 -6 6 -6"/></svg></span><span aria-current="page">هدفون بی‌سیم نووا پلاس</span></div></nav><div class="container page-main">
+<div class="pd-layout">
+  <div class="pd-gallery">
+    <div class="pd-media">
+      <img src="{{ product.image.url }}" alt="{{ product.title }}" width="400" height="400">
+      {% if product.discount_percent %}
+      <span class="badge badge-off">٪{{ product.discount_percent }} تخفیف</span>
+      {% endif %}
+    </div>
+  </div>
+  <div class="pd-info">
+    <span class="card-cat">دسته‌بندی: {{ product.category.title }}</span>
+    <h1 class="pd-title">{{ product.title }}</h1>
+    <p class="pd-desc">{{ product.description|safe }}</p>
+    {% if product.discount_percent %}
+    <div class="pd-price">
+      <div class="pd-price-row">
+        <del class="price-old">{{ product.price|intcomma }} تومان</del>
+        <span class="badge badge-off">سود شما: {{ product.calculate_discount|intcomma }} تومان</span>
+      </div>
+      <div class="pd-price-new"><strong>{{ product.final_price|intcomma }}</strong><span>تومان</span></div>
+    </div>
+    {% else %}
+    <div class="pd-price">
+      <div class="pd-price-row">
+      <div class="pd-price-new"><strong>{{ product.price|intcomma }}</strong><span>تومان</span></div>
+    </div>
+    {% endif %}
+    <div class="pd-actions">
+      <form class="pd-cart-form" method="post" action="cart.html">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="product_id" value="p1">
+        <label class="qty-label" for="pd-qty">تعداد:</label>
+        <input id="pd-qty" class="qty-input-lg" type="text" name="quantity" value="۱" inputmode="numeric" aria-label="تعداد سفارش">
+        <button class="btn btn-primary btn-lg" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg> افزودن به سبد خرید</button>
+      </form>
+      <form method="post" action="{% url 'products:add_wishlist' %}">
+        {% csrf_token %}
+        <input type="hidden" name="product" value="{{ product.slug }}">
+        <button class="btn btn-outline btn-lg" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg> افزودن به علاقه‌مندی‌ها</button>
+      </form>
+    </div>
+    <ul class="pd-meta-list">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22 s8 -3.6 8 -10 V5.2 L12 2 4 5.2 V12 c0 6.4 8 10 8 10 z"/><path d="m9 11.5 2 2 4 -4.5"/></svg> گارانتی ۱۸ ماهه نووا سرویس</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M1 7 h13 v9 H3.5 L1 13 z"/><path d="M14 9.5 h4.5 L21.5 13 v3 h-3"/><circle cx="6" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg> ارسال از ۲ روز کاری آینده</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m20 6 -11 11 -5 -5"/></svg> موجود در انبار نوا — آماده ارسال</li>
+    </ul>
+  </div>
+</div>
+<section class="pd-specs">
+  {{ product.details|safe }}
+</section>
+<section class="related-section">
+  <div class="section-head">
+  <div class="section-head-text">
+    <span class="section-tag">پیشنهاد نوا</span>
+    <h2 class="section-title">محصولات مشابه</h2>
+    <p class="section-desc">محصولاتی که شاید برای شما جذاب باشند</p>
+  </div>
+  
+</div>
+  <div class="product-grid related-grid">
+    
+    {% for item in products %}
+    
+    <article class="product-card">
+  <div class="card-media">
+    <a class="card-img-link" href="{% url 'products:detail' item.slug %}" tabindex="-1" aria-hidden="true"><img class="card-img" src="{{ item.image.url }}" alt="{{ item.title }}" width="400" height="400" loading="lazy"></a>
+    {% if item.discount_percent %}
+    <span class="badge badge-off">٪{{ item.discount_percent }} تخفیف</span>
+    {% endif %}
+   </div>
+  <div class="card-body">
+    <span class="card-cat">{{ item.category.title }}</span>
+    <h3 class="card-title"><a href="{% url 'products:detail' item.slug %}">{{ item.title }}</a></h3>
+    <p class="card-desc">{{ item.get_summary }}</p>
+    <div class="card-price">
+      {% if item.discount_percent %}
+      <del class="price-old">{{ item.price|intcomma }} <small>تومان</small></del>
+      <strong class="price-new">{{ item.final_price|intcomma }} <small>تومان</small></strong>
+      {% else %}
+      <strong class="price-new">{{ item.price|intcomma }} <small>تومان</small></strong>
+      {% endif %}
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-outline btn-sm" href="{% url 'products:detail' item.slug %}">مشاهده محصول</a>
+      <form method="post" action="cart.html">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="product_id" value="p5">
+        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
+      </form>
+    </div>
+  </div>
+</article>
+{% endfor %}
+</div>
+</section></div>
+
+{% endblock content %}
