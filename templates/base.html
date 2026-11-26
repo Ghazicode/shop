@@ -16,6 +16,7 @@
   {% include 'messages.html' %}
 <a class="skip-link" href="#main">پرش به محتوای اصلی</a>
 <header class="site-header" id="site-header">
+  
   <div class="container header-inner">
     <a href="{% url 'home:index' %}" class="brand" aria-label="NOVA - صفحه اصلی فروشگاه">
       <svg class="brand-mark" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><defs><linearGradient id="lg-h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#60A5FA"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="14" fill="#EFF6FF"/><path d="M24 9c1.7 8.6 5.9 12.8 14.5 14.5C29.9 25.2 25.7 29.4 24 38c-1.7-8.6-5.9-12.8-14.5-14.5C18.1 21.8 22.3 17.6 24 9z" fill="url(#lg-h)"/><circle cx="34" cy="14" r="3" fill="#93C5FD"/></svg>
@@ -28,7 +29,7 @@
       {% if request.user.is_authenticated %}
       <a href="#" class="btn btn-ghost btn-header" title="پنل کاربری"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg><span class="btn-label">{{ request.user.user_profile.fullname }}</span></a>
       {% endif %}
-      <a href="cart.html" class="btn btn-outline btn-header btn-cart" title="سبد خرید"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span class="btn-label">سبد خرید</span><span class="cart-badge" aria-label="۳ محصول در سبد">۳</span></a>
+      <a href="{% url 'cart:detail' %}" class="btn btn-outline btn-header btn-cart" title="سبد خرید"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span class="btn-label">سبد خرید</span><span class="cart-badge" aria-label="{{ cart|length }} محصول در سبد">{{ cart|length }}</span></a>
       {% if request.user.is_authenticated %}
         <a href="{% url 'accounts:logout' %}" class="btn btn-danger btn-header" title="خروج"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3 h4 a2 2 0 0 1 2 2 v14 a2 2 0 0 1 -2 2 h-4"/><path d="m10 17 5 -5 -5 -5"/><path d="M15 12 H3"/></svg><span class="btn-label">خروج</span></a>
       
@@ -102,6 +103,6 @@
   </div>
 </footer>
 <button type="button" class="back-top" id="back-top" aria-label="بازگشت به بالای صفحه"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19 V5"/><path d="m5 12 7 -7 7 7"/></svg></button>
-
+<script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>

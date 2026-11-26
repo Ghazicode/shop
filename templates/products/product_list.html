@@ -201,17 +201,7 @@
                             {% endif %}
 
                             <strong class="price-new">
-
-                                {% if product.discount_percent %}
-
                                     {{ product.final_price|intcomma }}
-
-                                {% else %}
-
-                                    {{ product.price|intcomma }}
-
-                                {% endif %}
-
                                 <small>تومان</small>
 
                             </strong>
@@ -228,11 +218,9 @@
                                 مشاهده محصول
                             </a>
 
-                            <form method="post" action="cart.html">
+                            <form method="post" action="{% url 'cart:add' product.slug %}">
+                                {% csrf_token %}
 
-                                <input type="hidden" name="action" value="add">
-
-                                <input type="hidden" name="product_id" value="p1">
 
                                 <button class="btn btn-primary btn-sm" type="submit">
 

@@ -5,26 +5,42 @@ from products.models import Product, ProductStatus
 from .cart import Cart
 
 
+
 class AddToCartView(View):
-    def post(self, request, product_id):
+    def post(self, request, slug):
         product = get_object_or_404(
             Product,
-            id=product_id,
+            slug=slug,
             status=ProductStatus.ACTIVE,
         )
 
-        cart = Cart(request)
+        try:
+            quantity = int(request.POST.get('quantity', 1))
+        except (ValueError, TypeError):
+            quantity = 1
 
-        success = cart.add(product)
+        if quantity <= 0:
+            quantity = 1
+
+        cart = Cart(request)
+        success = cart.add(product, quantity=quantity)
 
         if not success:
-            messages.error(request, "موجودی محصول کافی نیست.")
+            messages.error(
+                request,
+                'موجودی محصول کافی نیست.'
+            )
         else:
-            messages.success(request, "محصول به سبد خرید اضافه شد.")
+            messages.success(
+                request,
+                'محصول به سبد خرید اضافه شد.'
+            )
 
-        return redirect("products:cart")
+        return redirect('cart:detail')
+    
 
 
+    
 class CartDetailView(View):
     def get(self, request):
         cart = Cart(request)
@@ -39,10 +55,47 @@ class CartDetailView(View):
 
 
 class RemoveFromCartView(View):
-    def post(self, request, product_id):
-        product = get_object_or_404(Product, id=product_id)
+    def post(self, request, slug):
+        product = get_object_or_404(Product, slug=slug)
 
         cart = Cart(request)
         cart.remove(product)
 
-        return redirect("products:cart")
+        return redirect("cart:detail")
+    
+
+class IncreaseCartView(View):
+    def post(self, request, slug):
+        product = get_object_or_404(
+            Product,
+            slug=slug,
+            status=ProductStatus.ACTIVE,
+        )
+
+        cart = Cart(request)
+
+        success = cart.add(product, quantity=1)
+
+        if not success:
+            messages.error(request, 'موجودی محصول کافی نیست.')
+        else:
+            messages.success(request, 'تعداد محصول افزایش یافت.')
+
+        return redirect('cart:detail')
+
+
+class DecreaseCartView(View):
+    def post(self, request, slug):
+        product = get_object_or_404(
+            Product,
+            slug=slug,
+            status=ProductStatus.ACTIVE,
+        )
+
+        cart = Cart(request)
+
+        cart.add(product, quantity=-1)
+
+        messages.success(request, 'تعداد محصول کاهش یافت.')
+
+        return redirect('cart:detail')

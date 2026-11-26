@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from .models import Product
+from products.models import Product, ProductStatus
 
 
 class Cart:
@@ -22,6 +22,7 @@ class Cart:
             self.cart[product_id] = {
                 "quantity": 0,
                 "price": str(product.final_price),
+                "original_price": str(product.price),
             }
 
         if update_quantity:
@@ -38,6 +39,7 @@ class Cart:
 
         self.cart[product_id]["quantity"] = new_quantity
         self.cart[product_id]["price"] = str(product.final_price)
+        self.cart[product_id]["original_price"] = str(product.price)
 
         self.save()
 
@@ -60,7 +62,7 @@ class Cart:
 
         products = Product.objects.filter(
             id__in=product_ids,
-            status="active",
+            status=ProductStatus.ACTIVE,
         )
 
         for product in products:
@@ -70,14 +72,42 @@ class Cart:
                 "product": product,
                 "quantity": item["quantity"],
                 "price": Decimal(item["price"]),
-                "total_price": (Decimal(item["price"]) * item["quantity"]),
+                "original_price": Decimal(item["original_price"]),
+                "total_price": (
+                    Decimal(item["price"]) * item["quantity"]
+                ),
+                "discount_price": (
+                    Decimal(item["original_price"])
+                    - Decimal(item["price"])
+                ) * item["quantity"],
             }
 
     def __len__(self):
-        return sum(item["quantity"] for item in self.cart.values())
+        return sum(
+            item["quantity"]
+            for item in self.cart.values()
+        )
+
+    def get_subtotal_price(self):
+        return sum(
+            (
+                Decimal(item["original_price"]) * item["quantity"]
+                for item in self.cart.values()
+            ),
+            Decimal("0"),
+        )
+
+    def get_discount_total(self):
+        return self.get_subtotal_price() - self.get_total_price()
 
     def get_total_price(self):
         return sum(
-            (Decimal(item["price"]) * item["quantity"] for item in self.cart.values()),
+            (
+                Decimal(item["price"]) * item["quantity"]
+                for item in self.cart.values()
+            ),
             Decimal("0"),
         )
+
+    def get_final_price(self):
+        return self.get_total_price() 

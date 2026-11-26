@@ -155,3 +155,27 @@
   /* راه‌اندازی اولیه */
   onScroll();
 })();
+
+
+
+const qun = document.getElementById('pd-qty');
+
+qun.addEventListener('input', () => {
+    if (Number(qun.value) < 1) {
+        qun.value = 1;
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
