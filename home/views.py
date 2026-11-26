@@ -3,12 +3,14 @@ from django.views import View
 from django.contrib import messages
 from articles.models import Article, ArticleStatus
 from accounts.forms import ContactForm
+from products.models import Product, ProductStatus
 
 
 class HomeView(View):
     def get(self, request):
         articles = Article.objects.filter(status=ArticleStatus.PUBLISHED)[:6]
-        return render(request, "home/index.html", {"articles": articles})
+        products = Product.objects.filter(status=ProductStatus.ACTIVE)[:12]
+        return render(request, "home/index.html", {"articles": articles, 'products':products})
 
 
 class AboutView(View):
