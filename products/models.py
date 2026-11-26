@@ -94,11 +94,10 @@ class WishList(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "product"],
-                name="unique_user_product_wishlist"
+                fields=["user", "product"], name="unique_user_product_wishlist"
             )
         ]
-        ordering = ['-id']
+        ordering = ["-id"]
 
     def __str__(self):
         return self.product.title
