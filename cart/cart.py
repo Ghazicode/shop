@@ -82,38 +82,24 @@ class Cart:
                 "price": current_price,
                 "original_price": original_price,
                 "total_price": current_price * quantity,
-                "discount_price": (
-                    original_price - current_price
-                ) * quantity,
+                "discount_price": (original_price - current_price) * quantity,
             }
 
     def __len__(self):
-        return sum(
-            item["quantity"]
-            for item in self.cart.values()
-        )
+        return sum(item["quantity"] for item in self.cart.values())
 
     def get_subtotal_price(self):
         return sum(
-            (
-                item["original_price"] * item["quantity"]
-                for item in self
-            ),
+            (item["original_price"] * item["quantity"] for item in self),
             Decimal("0"),
         )
 
     def get_discount_total(self):
-        return (
-            self.get_subtotal_price()
-            - self.get_total_price()
-        )
+        return self.get_subtotal_price() - self.get_total_price()
 
     def get_total_price(self):
         return sum(
-            (
-                item["total_price"]
-                for item in self
-            ),
+            (item["total_price"] for item in self),
             Decimal("0"),
         )
 

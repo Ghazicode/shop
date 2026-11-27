@@ -19,6 +19,6 @@ def get_order_totals(order_id):
         total_discount += discount
 
     return {
-        'total_price': total_price,
-        'total_discount': total_discount,
+        "total_price": total_price,
+        "total_discount": total_discount,
     }

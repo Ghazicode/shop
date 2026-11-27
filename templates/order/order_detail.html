@@ -154,19 +154,23 @@
 
                 <div class="cart-actions">
 
-                    <form method="post" action="">
-                        {% csrf_token %}
+                    {% if order.is_paid == 'paid' %}
 
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="5" width="20" height="14" rx="2.5"/>
-                                <path d="M2 10 h20"/>
-                                <path d="M6 15 h4"/>
-                            </svg>
+    <div class="alert alert-success">
+        این سفارش قبلاً پرداخت شده است.
+    </div>
 
-                            پرداخت و ثبت سفارش
-                        </button>
-                    </form>
+{% else %}
+
+    <form method="post" action="{% url 'payments:start' order.id %}">
+        {% csrf_token %}
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">
+            پرداخت و ثبت سفارش
+        </button>
+    </form>
+
+{% endif %}
 
                     <a class="btn btn-outline btn-block" href="{% url 'products:list' %}">
                         ادامه خرید

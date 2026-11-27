@@ -112,9 +112,8 @@ class Contact(models.Model):
         return self.fullname
 
 
-
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='address')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="address")
     title = models.CharField(max_length=250)
     fullname = models.CharField(max_length=250)
     phone_number = models.CharField(
@@ -126,17 +125,15 @@ class Address(models.Model):
     created_at = jmodels.jDateField(auto_now_add=True)
     updated_at = jmodels.jDateField(auto_now=True)
 
-
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
         constraints = [
             models.UniqueConstraint(
-                fields=['user'],
+                fields=["user"],
                 condition=models.Q(is_default=True),
-                name='unique_default_address_per_user'
+                name="unique_default_address_per_user",
             )
         ]
-
 
     def __str__(self):
         return self.user.email

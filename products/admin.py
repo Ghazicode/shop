@@ -50,8 +50,6 @@ class ProductAdmin(SummernoteModelAdmin):
         "status",
     )
 
-
-
     list_per_page = 20
 
     @admin.display(description="قیمت نهایی")

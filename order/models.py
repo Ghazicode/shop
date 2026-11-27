@@ -15,17 +15,13 @@ class PaymentStatus(models.TextChoices):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="orders"
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    address = models.ForeignKey(
+        Address, on_delete=models.PROTECT, related_name="orders"
     )
-    address = models.ForeignKey(Address, on_delete=models.PROTECT, related_name='orders')
 
     is_paid = models.CharField(
-        max_length=10,
-        choices=PaymentStatus.choices,
-        default=PaymentStatus.PENDING
+        max_length=10, choices=PaymentStatus.choices, default=PaymentStatus.PENDING
     )
 
     total_price = models.PositiveBigIntegerField(default=0)
@@ -41,17 +37,10 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(
-        Order,
-        on_delete=models.CASCADE,
-        related_name="items"
-    )
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
 
     product = models.ForeignKey(
-        Product,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="order_items"
+        Product, on_delete=models.SET_NULL, null=True, related_name="order_items"
     )
 
     product_name = models.CharField(max_length=255)
@@ -63,10 +52,7 @@ class OrderItem(models.Model):
     total_price = models.PositiveBigIntegerField(default=0)
 
     discount_percent = models.PositiveSmallIntegerField(
-        null=True,
-        blank=True,
-        default=0,
-        validators=[MaxValueValidator(100)]
+        null=True, blank=True, default=0, validators=[MaxValueValidator(100)]
     )
 
     @property

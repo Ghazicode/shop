@@ -36,10 +36,10 @@ class AddToCartView(View):
 class CartDetailView(View):
     def get(self, request):
         cart = Cart(request)
-        context = {'cart':cart}
+        context = {"cart": cart}
         if request.user.is_authenticated:
-            address = Address.objects.filter(user = request.user)
-            context['address'] = address
+            address = Address.objects.filter(user=request.user)
+            context["address"] = address
 
         return render(request, "cart/cart.html", context)
 
