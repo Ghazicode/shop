@@ -10,7 +10,9 @@ class HomeView(View):
     def get(self, request):
         articles = Article.objects.filter(status=ArticleStatus.PUBLISHED)[:6]
         products = Product.objects.filter(status=ProductStatus.ACTIVE)[:12]
-        return render(request, "home/index.html", {"articles": articles, 'products':products})
+        return render(
+            request, "home/index.html", {"articles": articles, "products": products}
+        )
 
 
 class AboutView(View):

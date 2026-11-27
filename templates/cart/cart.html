@@ -223,24 +223,56 @@
                         </strong>
                     </div>
 
-                    <form method="post" action="">
-                        {% csrf_token %}
+                    
+                    {% if request.user.is_authenticated %}
 
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">
-                            ثبت سبد خرید و ادامه فرایند سفارش
-                        </button>
-                    </form>
+                        <div class="cart-actions">
 
-                    <a class="btn btn-outline btn-block" href="{% url 'products:list' %}">
-                        ادامه خرید
-                    </a>
+                            {% if address %}
+                                <form method="post" action="{% url 'orders:create' %}">
+                                    {% csrf_token %}
 
+                                    <div class="form-group">
+                                        <select class="form-control" name="address">
+                                            {% for user_address in address %}
+                                                <option value="{{ user_address.id }}">
+                                                    {{ user_address.title }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
 
-                </div>
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit">
+                                     ثبت سبد خرید و ادامه فرایند سفارش
+                                    </button>
+                                </form>
 
-            </aside>
+                            {% else %}
+                                <a href="{% url 'accounts:add_address' %}" class="btn btn-primary btn-lg btn-block">
+                                 ثبت آدرس جدید
+                                </a>
+                            {% endif %}
 
-        {% endif %}
+                            <a class="btn btn-outline btn-block" href="{% url 'products:list' %}">
+                             ادامه خرید
+                            </a>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="cart-actions">
+                            <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg btn-block">
+                             ورود
+                            </a>
+
+                            <a class="btn btn-outline btn-block" href="{% url 'products:list' %}">
+                             ادامه خرید
+                            </a>
+                        </div>
+
+            {% endif %}
+            {% endif %}
 
     </div>
 

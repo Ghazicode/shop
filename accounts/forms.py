@@ -159,3 +159,71 @@ class ContactForm(forms.ModelForm):
                 }
             ),
         }
+
+
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = models.Address
+        exclude = ('is_default', 'user', 'created_at', 'updated_at')
+        widgets={
+            'title':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'addr-title',
+                    'placeholder':'مثلا خانه'
+                }
+            ),
+            'fullname':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'addr-name',
+                    'placeholder':'نام گیرنده سفارش'
+                }
+            ),
+            'phone_number':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'addr-phone',
+                    'placeholder':'شماره تلفن گیرنده'
+                }
+            ),
+            'postal_code':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'id':'addr-zip',
+                    'placeholder':'کد پستی را وارد نمایید',
+                    'min':10,
+                    'max':10
+                }
+            ),
+            'full_address':forms.Textarea(
+                attrs={
+                    'class':'form-control',
+                    'id':'addr-text',
+                    'placeholder':'استان، شهر، خیابان، کوچه، پلاک و واحد',
+                    'rows':3
+                }
+            ),
+        }
+
+
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data["phone_number"]
+
+        regex = r"^(?:\+98|0)?9\d{9}$"
+
+        if not re.match(regex, phone_number):
+            raise ValidationError("شماره موبایل نامعتبر می‌باشد")
+
+        return phone_number
+    
+    def clean_postal_code(self):
+        postal_code = self.cleaned_data['postal_code']
+
+        if not re.match(r'^\d{10}$', postal_code):
+            raise ValidationError('کد پستی باید دقیقاً ۱۰ رقم باشد.')
+
+        return postal_code

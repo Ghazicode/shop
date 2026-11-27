@@ -94,3 +94,36 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ("fullname", "email", "subject", "status", "created_at")
     list_filter = ("status",)
     search_fields = ("fullname", "message", "email", "subject")
+
+
+
+
+
+
+
+@admin.register(models.Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'user',
+        'title',
+        'fullname',
+        'created_at',
+    )
+
+    list_filter = (
+        'created_at',
+    )
+
+    search_fields = (
+        'user__email',
+        'fullname',
+        'phone_number',
+        'postal_code',
+        'title',
+    )
+
+
+
+
+    list_per_page = 25

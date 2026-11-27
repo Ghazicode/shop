@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     "articles.apps.ArticlesConfig",
     "products.apps.ProductsConfig",
     "cart.apps.CartConfig",
-    'order.apps.OrderConfig',
+    "order.apps.OrderConfig",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
-                'cart.context_processors.cart_context',
+                "cart.context_processors.cart_context",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],

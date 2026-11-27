@@ -110,3 +110,33 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.fullname
+
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='address')
+    title = models.CharField(max_length=250)
+    fullname = models.CharField(max_length=250)
+    phone_number = models.CharField(
+        max_length=12, validators=[validate_iranian_cellphone_number]
+    )
+    postal_code = models.CharField(max_length=10, unique=True)
+    full_address = models.TextField()
+    is_default = models.BooleanField(default=False)
+    created_at = jmodels.jDateField(auto_now_add=True)
+    updated_at = jmodels.jDateField(auto_now=True)
+
+
+    class Meta:
+        ordering = ['-id']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user'],
+                condition=models.Q(is_default=True),
+                name='unique_default_address_per_user'
+            )
+        ]
+
+
+    def __str__(self):
+        return self.user.email

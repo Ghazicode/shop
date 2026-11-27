@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block title %}ثبت ادرس جدید{% endblock title %}
+
+
+
+{% block content %}
+
+  <nav class="breadcrumb" aria-label="مسیر صفحه">
+    <div class="container breadcrumb-inner">
+      <a href="index.html">خانه</a>
+      <span class="chev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="m15 18 -6 -6 6 -6"/>
+        </svg>
+      </span>
+      <a href="user_dashboard.html">پنل کاربری</a>
+      <span class="chev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="m15 18 -6 -6 6 -6"/>
+        </svg>
+      </span>
+      <span aria-current="page">ثبت آدرس جدید</span>
+    </div>
+  </nav>
+
+  <div class="container page-main">
+    <header class="page-head">
+      <h1>ثبت آدرس جدید</h1>
+      <p>اطلاعات آدرس تحویل خود را وارد کنید.</p>
+    </header>
+
+    <section class="order-section new-address">
+      <h2>اطلاعات آدرس</h2>
+
+      <div class="panel-card">
+        <form class="address-form form-grid" method="post" action="{% url 'accounts:add_address' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="form-label" for="addr-title">عنوان آدرس</label>
+            {{ form.title }}
+          {% for error in form.title.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="addr-name">نام و نام خانوادگی گیرنده</label>
+            {{ form.fullname }}
+          {% for error in form.fullname.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="addr-phone">شماره موبایل</label>
+            {{ form.phone_number }}
+          {% for error in form.phone_number.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="addr-zip">کد پستی</label>
+            {{ form.postal_code }}
+          {% for error in form.postal_code.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label" for="addr-text">آدرس کامل</label>
+            {{ form.full_address }}
+          {% for error in form.full_address.errors %}
+            <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+          </div>
+
+          <div class="form-actions full">
+            <button class="btn btn-primary" type="submit">
+              ثبت آدرس جدید
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+{% endblock content %}

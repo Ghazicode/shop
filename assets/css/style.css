@@ -4654,7 +4654,27 @@ body.auth main {
 
 
 
+.cart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 24px;
+}
 
+.cart-actions form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cart-actions .form-group {
+    margin: 0;
+}
+
+.cart-actions .btn {
+    width: 100%;
+    margin: 0;
+}
 
 
 

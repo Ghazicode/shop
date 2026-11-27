@@ -6,6 +6,8 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from .models import Profile
 from django.db import transaction
+from .forms import AddressForm
+
 
 User = get_user_model()
 
@@ -85,3 +87,33 @@ class LogoutView(View):
             logout(request)
             messages.success(request, "با موفقیت خارج شدید")
             return redirect("accounts:login")
+
+class AddressView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            messages.info(request, 'قبل از ثبت ادرس باید وارد شوید')
+            return redirect("accounts:login")
+        form = AddressForm()
+        return render(request, 'accounts/add_address.html', {'form':form})
+    
+    def post(self, request):
+        if not request.user.is_authenticated:
+            messages.info(request, 'قبل از ثبت ادرس باید وارد شوید')
+            return redirect("accounts:login")
+        form = AddressForm(request.POST)
+        
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            messages.success(request, 'ادرس با موفقیت ثبت شد')    
+            return redirect('cart:detail')
+        else:
+            messages.error(request, 'اطلاعات را به درستی وارد نمایید')
+            return redirect('accounts:add_address')
+        
+
+
+    
+
+        

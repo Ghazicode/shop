@@ -3,7 +3,7 @@ from django.views import View
 from django.contrib import messages
 from products.models import Product, ProductStatus
 from .cart import Cart
-
+from accounts.models import Address
 
 
 class AddToCartView(View):
@@ -15,7 +15,7 @@ class AddToCartView(View):
         )
 
         try:
-            quantity = int(request.POST.get('quantity', 1))
+            quantity = int(request.POST.get("quantity", 1))
         except (ValueError, TypeError):
             quantity = 1
 
@@ -26,32 +26,22 @@ class AddToCartView(View):
         success = cart.add(product, quantity=quantity)
 
         if not success:
-            messages.error(
-                request,
-                'موجودی محصول کافی نیست.'
-            )
+            messages.error(request, "موجودی محصول کافی نیست.")
         else:
-            messages.success(
-                request,
-                'محصول به سبد خرید اضافه شد.'
-            )
+            messages.success(request, "محصول به سبد خرید اضافه شد.")
 
-        return redirect('cart:detail')
-    
+        return redirect("cart:detail")
 
 
-    
 class CartDetailView(View):
     def get(self, request):
         cart = Cart(request)
+        context = {'cart':cart}
+        if request.user.is_authenticated:
+            address = Address.objects.filter(user = request.user)
+            context['address'] = address
 
-        return render(
-            request,
-            "cart/cart.html",
-            {
-                "cart": cart,
-            },
-        )
+        return render(request, "cart/cart.html", context)
 
 
 class RemoveFromCartView(View):
@@ -62,7 +52,7 @@ class RemoveFromCartView(View):
         cart.remove(product)
 
         return redirect("cart:detail")
-    
+
 
 class IncreaseCartView(View):
     def post(self, request, slug):
@@ -77,11 +67,11 @@ class IncreaseCartView(View):
         success = cart.add(product, quantity=1)
 
         if not success:
-            messages.error(request, 'موجودی محصول کافی نیست.')
+            messages.error(request, "موجودی محصول کافی نیست.")
         else:
-            messages.success(request, 'تعداد محصول افزایش یافت.')
+            messages.success(request, "تعداد محصول افزایش یافت.")
 
-        return redirect('cart:detail')
+        return redirect("cart:detail")
 
 
 class DecreaseCartView(View):
@@ -96,6 +86,6 @@ class DecreaseCartView(View):
 
         cart.add(product, quantity=-1)
 
-        messages.success(request, 'تعداد محصول کاهش یافت.')
+        messages.success(request, "تعداد محصول کاهش یافت.")
 
-        return redirect('cart:detail')
+        return redirect("cart:detail")
