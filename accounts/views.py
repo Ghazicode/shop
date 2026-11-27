@@ -6,8 +6,8 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from .models import Profile
 from django.db import transaction
-from .forms import AddressForm
-
+from .forms import AddressForm, UserProfileForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 User = get_user_model()
 
 
@@ -111,3 +111,63 @@ class AddressView(View):
         else:
             messages.error(request, "اطلاعات را به درستی وارد نمایید")
             return redirect("accounts:add_address")
+
+
+class UserPanelView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        return render(request, 'accounts/user/index.html', {})
+    
+
+class UserUpdateProfileView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        form = UserProfileForm(instance = request.user.user_profile)
+        return render(request, 'accounts/user/update.html', {'form':form})
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        form = UserProfileForm(instance=request.user.user_profile, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'پروفایل شما با موفقیت بروزرسانی شد')
+            return redirect('accounts:user')
+        else:
+            messages.error(request, 'اطلاعات را به درستی وارد نمایید')
+            return redirect('accounts:user_update')
+        
+
+
+
+
+class ChangePasswordView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        form = PasswordChangeForm(request.user)
+        return render(request, 'accounts/user/change_password.html', {'form':form})
+    
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        form = PasswordChangeForm(
+            user=request.user,
+            data=request.POST
+        )
+
+        if form.is_valid():
+            user = form.save()
+
+            update_session_auth_hash(request, user)
+            messages.success(request, 'رمز عبور با موفقیت تغییر کرد.')
+            return redirect('accounts:change_password')
+        else:
+            messages.error(request, 'اطلاعات را به درستی وارد نمایید')
+            return redirect('accounts:change_password')
+
+
+            
+
+        

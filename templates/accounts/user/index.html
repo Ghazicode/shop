@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}پنل کاربری{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+<div class="container panel-layout">
+  <button type="button" class="btn btn-outline panel-toggle" id="panel-toggle" aria-expanded="false" aria-controls="panel-sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6 -6"/></svg> منوی پنل</button>
+  {% include 'accounts/panel/nav.html' %}
+  <div class="side-overlay" id="panel-overlay" tabindex="-1"></div>
+  <div class="panel-content">
+    <header class="panel-head">
+      <div><h1>داشبورد حساب کاربری</h1><p>نمای کلی فعالیت‌ها و وضعیت حساب شما در فروشگاه نوا</p></div>
+      <a class="btn btn-soft btn-sm" href="user_profile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg> حساب من</a>
+    </header>
+    <div class="stat-grid-wrap">
+<div class="stat-grid">
+  <div class="stat-card"><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21 8 -9 -5 -9 5 v8 l9 5 9 -5 z"/><path d="M3 8 l9 5 9 -5"/><path d="M12 13 v9"/></svg></span><strong>۸</strong><span>سفارش ثبت‌شده</span></div>
+  <div class="stat-card"><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2 H6 a2 2 0 0 0 -2 2 v16 a2 2 0 0 0 2 2 h12 a2 2 0 0 0 2 -2 V8 z"/><path d="M14 2 v6 h6"/><path d="M9 13 h6 M9 17 h4"/></svg></span><strong>۶</strong><span>فاکتور صادرشده</span></div>
+  <div class="stat-card"><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15 a2 2 0 0 1 -2 2 H7 l-4 4 V5 a2 2 0 0 1 2 -2 h14 a2 2 0 0 1 2 2 z"/></svg></span><strong>۳</strong><span>دیدگاه ثبت‌شده</span></div>
+  <div class="stat-card"><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg></span><strong>۵</strong><span>محصول علاقه‌مندی</span></div>
+</div></div>
+<div class="dashboard-grid">
+<div class="panel-card">
+  <h2>سفارش‌های اخیر</h2>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th scope="col">شماره سفارش</th><th scope="col">تاریخ</th><th scope="col">مبلغ</th><th scope="col">وضعیت</th><th scope="col">جزئیات</th></tr></thead>
+      <tbody><tr><td><strong>NV-10231</strong></td><td>۲۶ آبان ۱۴۰۵</td><td>۷٬۶۱۰٬۰۰۰ تومان</td><td><span class="badge badge-success">تحویل شده</span></td><td><a class="btn btn-soft btn-sm" href="user_invoices.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12 s3.5 -7 10 -7 10 7 10 7 -3.5 7 -10 7 -10 -7 -10 -7 z"/><circle cx="12" cy="12" r="3"/></svg></a></td></tr><tr><td><strong>NV-10218</strong></td><td>۲۰ آبان ۱۴۰۵</td><td>۱۸٬۴۹۰٬۰۰۰ تومان</td><td><span class="badge badge-info">در حال ارسال</span></td><td><a class="btn btn-soft btn-sm" href="user_invoices.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12 s3.5 -7 10 -7 10 7 10 7 -3.5 7 -10 7 -10 -7 -10 -7 z"/><circle cx="12" cy="12" r="3"/></svg></a></td></tr><tr><td><strong>NV-10207</strong></td><td>۱۴ آبان ۱۴۰۵</td><td>۲٬۲۸۰٬۰۰۰ تومان</td><td><span class="badge badge-success">پرداخت‌شده</span></td><td><a class="btn btn-soft btn-sm" href="user_invoices.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12 s3.5 -7 10 -7 10 7 10 7 -3.5 7 -10 7 -10 -7 -10 -7 z"/><circle cx="12" cy="12" r="3"/></svg></a></td></tr><tr><td><strong>NV-10198</strong></td><td>۸ آبان ۱۴۰۵</td><td>۱٬۶۸۰٬۰۰۰ تومان</td><td><span class="badge badge-info">در انتظار پرداخت</span></td><td><a class="btn btn-soft btn-sm" href="user_invoices.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12 s3.5 -7 10 -7 10 7 10 7 -3.5 7 -10 7 -10 -7 -10 -7 z"/><circle cx="12" cy="12" r="3"/></svg></a></td></tr></tbody>
+    </table>
+  </div>
+</div>
+<div class="panel-card dashboard-side">
+  <h2>فعالیت‌های اخیر</h2>
+  <ul class="activity-list"><li><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg></span><div>سفارش NV-10231 با موفقیت تحویل داده شد<span class="activity-time">۲ ساعت پیش</span></div></li><li><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15 a2 2 0 0 1 -2 2 H7 l-4 4 V5 a2 2 0 0 1 2 -2 h14 a2 2 0 0 1 2 2 z"/></svg></span><div>دیدگاه شما روی مقاله «۱۰ ترفند طلایی...» تأیید شد<span class="activity-time">دیروز</span></div></li><li><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg></span><div>«دوربین ورزشی نووا ویژن» به علاقه‌مندی‌ها اضافه شد<span class="activity-time">۳ روز پیش</span></div></li><li><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21 v-2 a4 4 0 0 0 -4 -4 H8 a4 4 0 0 0 -4 4 v2"/><circle cx="12" cy="7" r="4"/></svg></span><div>اطلاعات حساب شما به‌روزرسانی شد<span class="activity-time">۱ هفته پیش</span></div></li></ul>
+</div>
+<div class="panel-card">
+  <h2>تکمیل اطلاعات حساب</h2>
+  <p class="profile-completion-note">با تکمیل اطلاعات، ثبت سفارش شما سریع‌تر و امن‌تر می‌شود.</p>
+  <div class="progress" role="img" aria-label="تکمیل ۸۵ درصد"><span class="progress-fill p85"></span></div>
+  <p class="progress-label">۸۵٪ تکمیل شده</p>
+  <a class="btn btn-soft btn-block" href="user_profile.html">تکمیل اطلاعات</a>
+</div></div>
+  </div>
+</div>
+
+{% endblock content %}

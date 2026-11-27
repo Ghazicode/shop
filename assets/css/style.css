@@ -4677,6 +4677,26 @@ body.auth main {
 }
 
 
+.profile-image-wrapper {
+    margin-bottom: 15px;
+}
+
+.profile-image-preview {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--border-color);
+    display: block;
+}
+
+#file-name {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
 
 
 

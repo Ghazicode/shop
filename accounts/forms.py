@@ -223,3 +223,69 @@ class AddressForm(forms.ModelForm):
             raise ValidationError("کد پستی باید دقیقاً ۱۰ رقم باشد.")
 
         return postal_code
+
+
+
+
+
+
+class UserProfileForm(forms.ModelForm):
+    image = forms.ImageField(required=True, label="تصویر مقاله")
+    class Meta:
+        model = models.Profile
+        fields = ['fullname', 'phone_number', 'image']
+
+        widgets = {
+            'fullname': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'نام و نام خانوادگی',
+            }),
+
+            'phone_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'شماره موبایل',
+                'inputmode': 'numeric',
+            }),
+
+            
+        }
+
+
+from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
+
+
+class PasswordChangeForm(PasswordChangeForm):
+
+    old_password = forms.CharField(
+        label='رمز عبور فعلی',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'id': 'cur-pass',
+            'name': 'cur-pass',
+            'placeholder': 'رمز عیور فعلی خود را وارد نمایید',
+            'autocomplete': 'current-password',
+        })
+    )
+
+    new_password1 = forms.CharField(
+        label='رمز عبور جدید',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'id': 'new-pass',
+            'name': 'new-pass',
+            'placeholder': 'رمز عبور جدید خود را وارد نمایید',
+            'autocomplete': 'new-password',
+        })
+    )
+
+    new_password2 = forms.CharField(
+        label='تکرار رمز عبور جدید',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'id': 'new-pass2',
+            'name': 'new-pass2',
+            'placeholder': 'تکرار رمز عبور جدید خود را وارد نمایید',
+            'autocomplete': 'new-password',
+        })
+    )
