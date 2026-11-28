@@ -8,7 +8,7 @@ from accounts.models import Address
 User = get_user_model()
 
 
-class PaymentStatus(models.TextChoices):
+class OrderStatus(models.TextChoices):
     PAID = "paid", "پرداخت شده"
     PENDING = "pending", "در انتظار پرداخت"
     CANCELLED = "cancelled", "لغو شده"
@@ -22,7 +22,7 @@ class Order(models.Model):
     )
 
     is_paid = models.CharField(
-        max_length=10, choices=PaymentStatus.choices, default=PaymentStatus.PENDING
+        max_length=10, choices=OrderStatus.choices, default=OrderStatus.PENDING
     )
 
     total_price = models.PositiveBigIntegerField(default=0)

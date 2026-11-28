@@ -7,7 +7,7 @@ from django.conf import settings
 from django.db import transaction
 from django.http import HttpResponseBadRequest
 
-from order.models import Order, PaymentStatus
+from order.models import Order, OrderStatus
 from .models import Payment
 from .services import (
     create_payment_request,
@@ -24,7 +24,7 @@ class StartPaymentView(LoginRequiredMixin, View):
         order = get_object_or_404(Order, id=order_id, user=request.user)
 
         # 2. جلوگیری از پرداخت مجدد سفارش
-        if order.is_paid == PaymentStatus.PAID:
+        if order.is_paid == OrderStatus.PAID:
             messages.info(request, "این سفارش قبلاً پرداخت شده است.")
             return redirect("orders:detail", id=order.id)
 
@@ -121,7 +121,7 @@ class VerifyPaymentView(View):
                     # 8. تغییر وضعیت سفارش
                     order = Order.objects.select_for_update().get(pk=payment.order_id)
 
-                    order.is_paid = PaymentStatus.PAID
+                    order.is_paid = OrderStatus.PAID
                     order.save(update_fields=["is_paid"])
 
         except ZarinpalError as error:
