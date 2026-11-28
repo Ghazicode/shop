@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 
@@ -8,7 +9,7 @@
 
 {% block content %}
 
-<nav class="breadcrumb" aria-label="مسیر صفحه"><div class="container breadcrumb-inner"><a href="index.html">خانه</a><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18 -6 -6 6 -6"/></svg></span><span aria-current="page">درباره ما</span></div></nav>
+<nav class="breadcrumb" aria-label="مسیر صفحه"><div class="container breadcrumb-inner"><a href="{% url 'home:index' %}">خانه</a><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18 -6 -6 6 -6"/></svg></span><span aria-current="page">درباره ما</span></div></nav>
 <section class="about-hero"><div class="container">
   <h1>درباره فروشگاه نوا</h1>
   <p>آشنایی بیشتر با تیمی که تجربه خرید تکنولوژی شما را ساده و مطمئن می‌کند</p>
@@ -22,112 +23,10 @@
       <p>امروز با بیش از ۵۰۰ محصول فعال، تیمی ۴۰ نفره از کارشناسان فنی و پشتیبانی، و انباری هوشمند در تهران، هر ماه هزاران سفارش را با ضمانت اصالت و بازگشت ۷ روزه به سراسر ایران می‌فرستیم.</p>
       <p>باور ما ساده است: مشتری فقط «کالا» نمی‌خرد؛ تجربه‌ای مطمئن می‌خرد. به همین دلیل از مشاوره پیش از خرید تا پشتیبانی پس از آن، کنار شما هستیم.</p>
     </div>
-    <img class="story-media" src="assets/img/story.svg" alt="تصویر مفهومی فروشگاه و ارسال کالا در نوا" width="600" height="440" loading="lazy">
+    <img class="story-media" src="{% static 'img/story.svg' %}" alt="تصویر مفهومی فروشگاه و ارسال کالا در نوا" width="600" height="440" loading="lazy">
   </div>
 </section>
-<section class="section"><div class="container">
-  <div class="section-head">
-  <div class="section-head-text">
-    <span class="section-tag">منتخب نوا</span>
-    <h2 class="section-title">محصولات محبوب این هفته</h2>
-    <p class="section-desc">نمونه‌ای از قفسه‌های پرطرفدار نوا</p>
-  </div>
-  <a class="btn btn-outline section-more" href="products.html">مشاهده محصولات <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12 H5"/><path d="m12 19 -7 -7 7 -7"/></svg></a>
-</div>
-  <div class="product-grid"><article class="product-card">
-  <div class="card-media">
-    <a class="card-img-link" href="product_detail.html" tabindex="-1" aria-hidden="true"><img class="card-img" src="assets/img/products/p02.svg" alt="ساعت هوشمند نووا اس۳ | آبی" width="400" height="400" loading="lazy"></a>
-    <span class="badge badge-off">٪۱۵ تخفیف</span>
-    <form class="card-wish" method="post" action="wishlist.html"><input type="hidden" name="action" value="add"><input type="hidden" name="product_id" value="p2"><button class="icon-btn" type="submit" aria-label="افزودن «ساعت هوشمند نووا اس۳ | آبی» به علاقه‌مندی‌ها" title="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg></button></form>
-  </div>
-  <div class="card-body">
-    <span class="card-cat">پوشیدنی</span>
-    <h3 class="card-title"><a href="product_detail.html">ساعت هوشمند نووا اس۳ | آبی</a></h3>
-    <p class="card-desc">نمایشگر AMOLED، پایش ضربان قلب و خواب و بیش از ۱۰۰ حالت ورزشی</p>
-    <div class="card-price">
-      <del class="price-old">۴٬۲۰۰٬۰۰۰ <small>تومان</small></del>
-      <strong class="price-new">۳٬۵۷۰٬۰۰۰ <small>تومان</small></strong>
-    </div>
-    <div class="card-actions">
-      <a class="btn btn-outline btn-sm" href="product_detail.html">مشاهده محصول</a>
-      <form method="post" action="cart.html">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="product_id" value="p2">
-        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
-      </form>
-    </div>
-  </div>
-</article><article class="product-card">
-  <div class="card-media">
-    <a class="card-img-link" href="product_detail.html" tabindex="-1" aria-hidden="true"><img class="card-img" src="assets/img/products/p05.svg" alt="اسپیکر بلوتوثی نووا بیت | آبی روشن" width="400" height="400" loading="lazy"></a>
-    <span class="badge badge-off">٪۲۵ تخفیف</span>
-    <form class="card-wish" method="post" action="wishlist.html"><input type="hidden" name="action" value="add"><input type="hidden" name="product_id" value="p5"><button class="icon-btn" type="submit" aria-label="افزودن «اسپیکر بلوتوثی نووا بیت | آبی روشن» به علاقه‌مندی‌ها" title="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg></button></form>
-  </div>
-  <div class="card-body">
-    <span class="card-cat">صوتی</span>
-    <h3 class="card-title"><a href="product_detail.html">اسپیکر بلوتوثی نووا بیت | آبی روشن</a></h3>
-    <p class="card-desc">صدای فراگیر ۳۶۰ درجه، ضدآب IPX7 و ۲۴ ساعت پخش بی‌وقفه</p>
-    <div class="card-price">
-      <del class="price-old">۱٬۶۰۰٬۰۰۰ <small>تومان</small></del>
-      <strong class="price-new">۱٬۲۰۰٬۰۰۰ <small>تومان</small></strong>
-    </div>
-    <div class="card-actions">
-      <a class="btn btn-outline btn-sm" href="product_detail.html">مشاهده محصول</a>
-      <form method="post" action="cart.html">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="product_id" value="p5">
-        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
-      </form>
-    </div>
-  </div>
-</article><article class="product-card">
-  <div class="card-media">
-    <a class="card-img-link" href="product_detail.html" tabindex="-1" aria-hidden="true"><img class="card-img" src="assets/img/products/p08.svg" alt="تبلت نووا تب ۱۱ | آبی" width="400" height="400" loading="lazy"></a>
-    <span class="badge badge-off">٪۱۴ تخفیف</span>
-    <form class="card-wish" method="post" action="wishlist.html"><input type="hidden" name="action" value="add"><input type="hidden" name="product_id" value="p8"><button class="icon-btn" type="submit" aria-label="افزودن «تبلت نووا تب ۱۱ | آبی» به علاقه‌مندی‌ها" title="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg></button></form>
-  </div>
-  <div class="card-body">
-    <span class="card-cat">تبلت</span>
-    <h3 class="card-title"><a href="product_detail.html">تبلت نووا تب ۱۱ | آبی</a></h3>
-    <p class="card-desc">نمایشگر ۱۱ اینچی 2K، پشتیبانی از قلم هوشمند و باتری ۱۲ ساعته</p>
-    <div class="card-price">
-      <del class="price-old">۲۱٬۵۰۰٬۰۰۰ <small>تومان</small></del>
-      <strong class="price-new">۱۸٬۴۹۰٬۰۰۰ <small>تومان</small></strong>
-    </div>
-    <div class="card-actions">
-      <a class="btn btn-outline btn-sm" href="product_detail.html">مشاهده محصول</a>
-      <form method="post" action="cart.html">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="product_id" value="p8">
-        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
-      </form>
-    </div>
-  </div>
-</article><article class="product-card">
-  <div class="card-media">
-    <a class="card-img-link" href="product_detail.html" tabindex="-1" aria-hidden="true"><img class="card-img" src="assets/img/products/p11.svg" alt="ماوس بی‌سیم نووا کلیک | آبی" width="400" height="400" loading="lazy"></a>
-    <span class="badge badge-off">٪۱۰ تخفیف</span>
-    <form class="card-wish" method="post" action="wishlist.html"><input type="hidden" name="action" value="add"><input type="hidden" name="product_id" value="p11"><button class="icon-btn" type="submit" aria-label="افزودن «ماوس بی‌سیم نووا کلیک | آبی» به علاقه‌مندی‌ها" title="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.8 5.6 a5.3 5.3 0 0 0 -7.5 0 L12 6.9 l-1.3 -1.3 a5.3 5.3 0 1 0 -7.5 7.5 l1.3 1.3 L12 21.2 l7.5 -6.8 1.3 -1.3 a5.3 5.3 0 0 0 0 -7.5 z"/></svg></button></form>
-  </div>
-  <div class="card-body">
-    <span class="card-cat">لوازم جانبی</span>
-    <h3 class="card-title"><a href="product_detail.html">ماوس بی‌سیم نووا کلیک | آبی</a></h3>
-    <p class="card-desc">سنسور ۱۶هزار DPI، وزن سبک ۵۹ گرم و باتری ۷۰ ساعته</p>
-    <div class="card-price">
-      <del class="price-old">۸۹۰٬۰۰۰ <small>تومان</small></del>
-      <strong class="price-new">۸۰۱٬۰۰۰ <small>تومان</small></strong>
-    </div>
-    <div class="card-actions">
-      <a class="btn btn-outline btn-sm" href="product_detail.html">مشاهده محصول</a>
-      <form method="post" action="cart.html">
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="product_id" value="p11">
-        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
-      </form>
-    </div>
-  </div>
-</article></div>
-</div></section>
+
 
 <section class="section section-alt">
   <div class="container">

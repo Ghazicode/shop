@@ -30,6 +30,7 @@
     </div>
 </div>
     
+{% if articles %}
   {% for article in articles %}
     <article class="post-card">
   <a class="post-media" href="{% url 'articles:detail' article.slug %}" tabindex="-1" aria-hidden="true"><img class="post-img" src="{{ article.image.url }}" alt="{{ article.title }}" width="640" height="360" loading="lazy"></a>
@@ -73,6 +74,9 @@
     {% endif %}
 
 </nav>
+{% else %}
+<span>مقاله ای وجود ندارد</span>
+{% endif %}
   
 </div>
 {% endblock content %}
