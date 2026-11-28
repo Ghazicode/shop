@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}نظرات من{% endblock title %}
+
+
+
+{% block content %}
+
+
+<div class="container panel-layout">
+  <button type="button" class="btn btn-outline panel-toggle" id="panel-toggle" aria-expanded="false" aria-controls="panel-sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6 -6"/></svg> منوی پنل</button>
+  {% include 'accounts/user/nav.html' %}
+  <div class="side-overlay" id="panel-overlay" tabindex="-1"></div>
+  <div class="panel-content">
+    <div class="panel-card">
+  <h2>دیدگاه‌های من روی مقالات</h2>
+  <div class="my-comments-list">
+    {% for comment in comments %}
+        <div class="comment-card">
+          <div class="comment-card-head">
+            <a class="comment-post-link" href="{% url 'articles:detail' comment.article.slug %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2 H6 a2 2 0 0 0 -2 2 v16 a2 2 0 0 0 2 2 h12 a2 2 0 0 0 2 -2 V8 z"/><path d="M14 2 v6 h6"/><path d="M9 13 h6 M9 17 h4"/></svg>{{ comment.article.title }}</a>
+            {% if comment.status == 'approved' %}
+            <span class="badge badge-success">تأیید شده</span>
+            {% elif comment.status == 'pending' %}
+            <span class="badge badge-info">در انتظار تایید</span>
+            {% else %}
+            <span class="badge badge-error">لغو شده</span>
+            {% endif %}
+
+          </div>
+          <p class="comment-card-text">{{ comment.comment }}</p>
+          <div class="comment-card-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2 v4 M8 2 v4 M3 10 h18"/></svg>{{ comment.created_at|date:'Y/m/d' }}</div>
+        </div>
+        {% endfor %}
+      </div>
+</div>
+  </div>
+</div>
+
+
+{% endblock content %}

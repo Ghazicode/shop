@@ -8,6 +8,9 @@ from .models import Profile
 from django.db import transaction
 from .forms import AddressForm, UserProfileForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from products.models import WishList
+from articles.models import Comment
+from order.models import Order
 User = get_user_model()
 
 
@@ -38,7 +41,6 @@ class LoginView(View):
 
 
 class RegisterView(View):
-
     def get(self, request):
         if request.user.is_authenticated:
             return redirect("home:index")
@@ -117,7 +119,36 @@ class UserPanelView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("accounts:login")
-        return render(request, 'accounts/user/index.html', {})
+        orders = Order.objects.filter(user = request.user)[:5]
+        return render(request, 'accounts/user/index.html', {'orders':orders})
+    
+
+class OrderListView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        orders = Order.objects.filter(user = request.user)
+        return render(request, 'accounts/user/order_list.html', {'orders':orders})
+
+
+class UserCommentListView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        comments = Comment.objects.filter(author = request.user)
+        return render(request, 'accounts/user/comments.html', {'comments':comments})
+        
+
+
+class WishListView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("accounts:login")
+        wishlist = WishList.objects.filter(user = request.user)
+        return render(request, 'accounts/user/wishlist.html', {'wishlist':wishlist})
+
+
+
     
 
 class UserUpdateProfileView(View):

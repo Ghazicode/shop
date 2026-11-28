@@ -12,6 +12,7 @@ class PaymentStatus(models.TextChoices):
     PAID = "paid", "پرداخت شده"
     PENDING = "pending", "در انتظار پرداخت"
     CANCELLED = "cancelled", "لغو شده"
+    DELIVERED = "delivered", "تحویل داده شده"
 
 
 class Order(models.Model):

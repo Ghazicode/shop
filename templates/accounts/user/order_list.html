@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block title %}فاکتور های من{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+<div class="container panel-layout">
+  <button type="button" class="btn btn-outline panel-toggle" id="panel-toggle" aria-expanded="false" aria-controls="panel-sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6 -6"/></svg> منوی پنل</button>
+  {% include 'accounts/user/nav.html' %}
+  <div class="side-overlay" id="panel-overlay" tabindex="-1"></div>
+  <div class="panel-content">
+    <div class="panel-card">
+  <h2>لیست فاکتورها</h2>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th scope="col">شماره فاکتور</th><th scope="col">تاریخ صدور</th><th scope="col">مبلغ</th><th scope="col">وضعیت پرداخت</th><th scope="col">عملیات</th></tr></thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>
+            <strong>{{ order.id }}</strong>
+          </td>
+          <td>{{ order.created_at|date:'Y/m/d' }}</td>
+          <td>{{ order.total_price|intcomma }} تومان</td>
+          <td>
+            {% if order.is_paid == 'paid' %}
+            <span class="badge badge-success">پرداخت‌شده</span>
+            {% elif order.is_paid == 'delivered' %}
+            <span class="badge badge-success">تحویل شده</span>
+            {% elif order.is_paid == 'pending' %}
+            <span class="badge badge-info">درانتظار پرداخت</span>
+            {% else %}
+            <span class="badge badge-error">لغو</span>
+            {% endif %}
+          </td>
+          <td>
+            <a class="btn btn-soft btn-sm" href="{% url 'orders:detail' order.id %}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M2 12 s3.5 -7 10 -7 10 7 10 7 -3.5 7 -10 7 -10 -7 -10 -7 z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg> مشاهده جزئیات</a>
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+    </table>
+  </div>
+  <p class="table-note">برای مشاهده جزئیات هر فاکتور، از دکمه «مشاهده جزئیات» استفاده کنید.</p>
+</div>
+  </div>
+</div>
+
+
+{% endblock content %}

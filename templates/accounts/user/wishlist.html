@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+
+
+{% block title %}علاقه مندی ها{% endblock title %}
+
+
+{% block content %}
+
+<div class="container panel-layout">
+  <button type="button" class="btn btn-outline panel-toggle" id="panel-toggle" aria-expanded="false" aria-controls="panel-sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6 -6"/></svg> منوی پنل</button>
+  {% include 'accounts/user/nav.html' %}
+  <div class="side-overlay" id="panel-overlay" tabindex="-1"></div>
+  <div class="panel-content">
+
+    <div class="grid-wrap"><div class="product-grid panel-wishlist-grid">
+      
+
+      {% for w in wishlist %}
+      <article class="product-card">
+  <div class="card-media">
+    <a class="card-img-link" href="{% url 'products:detail' w.product.slug %}" tabindex="-1" aria-hidden="true"><img class="card-img" src="{{ w.product.image.url }}" alt="{{ w.product.title }}" width="400" height="400" loading="lazy"></a>
+    {% if w.product.discount_percent %}
+    <span class="badge badge-off">٪{{ w.product.discount_percent }} تخفیف</span>
+    {% endif %}
+    <form class="card-wish" method="post" action="{% url 'products:delete_wishlist' %}">{% csrf_token %}<input
+                                type="hidden"
+                                name="product"
+                                value="{{ w.product.slug }}"
+                            ><button class="icon-btn icon-btn-danger" type="submit" aria-label="حذف «ساعت هوشمند نووا اس۳ | آبی» از علاقه‌مندی‌ها" title="حذف از علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6 h18"/><path d="M19 6 v14 a2 2 0 0 1 -2 2 H7 a2 2 0 0 1 -2 -2 V6"/><path d="M8 6 V4 a2 2 0 0 1 2 -2 h4 a2 2 0 0 1 2 2 v2"/><path d="M10 11 v6 M14 11 v6"/></svg></button></form>
+  </div>
+  <div class="card-body">
+    <span class="card-cat">{{ w.product.category.title }}</span>
+    <h3 class="card-title"><a href="{% url 'products:detail' w.product.slug %}">{{ w.product.title }}</a></h3>
+    <p class="card-desc">{{ w.product.get_summary }}</p>
+    <div class="card-price">
+      {% if w.product.discount_percent %}
+      <del class="price-old">{{ w.product.price|intcomma }} <small>تومان</small></del>
+      {% endif %}
+      <strong class="price-new">{{ w.product.final_price|intcomma }} <small>تومان</small></strong>
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-outline btn-sm" href="{% url 'products:detail' w.product.slug %}">مشاهده محصول</a>
+      <form method="post" action="{% url 'cart:add' w.product.slug %}">
+      {% csrf_token %}
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="product_id" value="p2">
+        <button class="btn btn-primary btn-sm" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4 h2.2 l2.3 11 h10 L20.5 8 H6"/></svg><span>افزودن به سبد</span></button>
+      </form>
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+</div></div>
+<div class="panel-card wishlist-link-card">
+  <p>محصولات علاقه‌مندی شما در صفحه عمومی فروشگاه هم قابل مشاهده است.</p>
+  <a class="btn btn-outline btn-sm" href="{% url 'products:wishlist' %}">مشاهده صفحه علاقه‌مندی‌ها</a>
+</div>
+  </div>
+</div>
+
+{% endblock content %}
